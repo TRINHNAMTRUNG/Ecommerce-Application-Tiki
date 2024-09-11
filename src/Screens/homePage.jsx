@@ -1,9 +1,9 @@
 import React, { memo, useState } from 'react';
 import { View, ScrollView, StyleSheet, TouchableOpacity, Image, Button, TextInput, FlatList } from 'react-native';
-import SlideAvertisement from '../components/slideAvertisement';
-import ListCategory from '../components/listCategory';
-import FrameAddress from '../components/frameAddress';
-import BarSearch from '../components/barSearch';
+import SlideAvertisement from '../components/slideAvertisement.jsx';
+import ListCategory from '../components/listCategory.jsx';
+import FrameAddress from '../components/frameAddress.jsx';
+import BarSearch from '../components/barSearch.jsx';
 
 
 const FirstScreen = () => {
