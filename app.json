@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "MyFistAppication",
-    "slug": "MyFistAppication",
+    "slug": "mytiki",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,6 +22,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c8d4389e-f490-4764-ab06-095bf56cdfac"
+      }
+    },
+    "owner": "trinhnamtrung"
   }
 }
