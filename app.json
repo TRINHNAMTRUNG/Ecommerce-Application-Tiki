@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "MyFistAppication",
+    "name": "MyTiki-Application",
     "slug": "mytiki",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -28,6 +28,12 @@
         "projectId": "c8d4389e-f490-4764-ab06-095bf56cdfac"
       }
     },
-    "owner": "trinhnamtrung"
+    "owner": "trinhnamtrung",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/c8d4389e-f490-4764-ab06-095bf56cdfac"
+    }
   }
 }

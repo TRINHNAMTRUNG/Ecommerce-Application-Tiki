@@ -18,7 +18,8 @@
     "react-native": "0.74.5",
     "react-native-svg": "^15.6.0",
     "react-native-vector-icons": "^10.0.2",
-    "react-native-web": "^0.19.12"
+    "react-native-web": "^0.19.12",
+    "expo-updates": "~0.25.24"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
