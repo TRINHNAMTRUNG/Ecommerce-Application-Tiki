@@ -6,7 +6,8 @@ import ListCategory from '../../components/Home/listCategory.jsx'
 import FrameAddress from '../../components/Home/frameAddress.jsx';
 import BarSearch from '../../components/Home/barSearch.jsx';
 
-import { dataAdvertisement } from '../../data/dataObject.js';
+import { dataAdvertisement, dataProduct } from '../../data/dataObject.js';
+import ListProduct from '../../components/Home/listProduct.jsx';
 
 const HomePage = () => {
   const [isFixed, setIsFixed] = useState(false);
@@ -44,6 +45,7 @@ const HomePage = () => {
           <ListCategory />
           <ListCategory />
           <FrameAddress />
+          <ListProduct dataProduct={dataProduct} />
         </View>
       </ScrollView >
     </>

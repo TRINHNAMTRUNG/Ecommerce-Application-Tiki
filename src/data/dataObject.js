@@ -19,6 +19,25 @@ import catg9 from "../assets/listCatg/catg9.png";
 import catg10 from "../assets/listCatg/catg10.png";
 
 //Object
+export const dataProduct = [
+    {
+        id: "1234",
+        title: "Điện thoại Oppo A18 (4GB/128GB) - Hàng chính hãng",
+        discount: 19,
+        price: 3250000,
+        originalPrice: 3990000,
+        rating: 4.5,
+    },
+    {
+        id: "1234abc",
+        title: "Điện thoại Samsung Galaxy A72 (8GB/256GB) - Hàng chính hãng",
+        discount: 19,
+        price: 10250000,
+        originalPrice: 10990000,
+        rating: 5,
+    }
+]
+
 export const dataAdvertisement = [
     {
         id: 1,
