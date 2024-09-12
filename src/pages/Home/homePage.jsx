@@ -37,15 +37,20 @@ const HomePage = () => {
 
         <View style={stylesHomePage.frameBody}>
           <ListCategory />
-          <ListCategory />
-          <ListCategory />
-          <ListCategory />
-          <ListCategory />
-          <ListCategory />
-          <ListCategory />
-          <ListCategory />
           <FrameAddress />
-          <ListProduct dataProduct={dataProduct} />
+          <View style={stylesHomePage.frameListProducts}>
+            <ListProduct dataProduct={dataProduct} />
+          </View>
+          <View style={stylesHomePage.frameListProducts}>
+            <ListProduct dataProduct={dataProduct} />
+          </View>
+          <View style={stylesHomePage.frameListProducts}>
+            <ListProduct dataProduct={dataProduct} />
+          </View>
+          <View style={stylesHomePage.frameListProducts}>
+            <ListProduct dataProduct={dataProduct} />
+          </View>
+
         </View>
       </ScrollView >
     </>
@@ -64,6 +69,9 @@ const stylesHomePage = StyleSheet.create({
     position: "relative",
     alignItems: "center",
   },
+  frameListProducts: {
+
+  },
   imageHeader: {
     position: "absolute",
     height: "65%",
@@ -78,7 +86,7 @@ const stylesHomePage = StyleSheet.create({
   },
   frameBody: {
     flex: 2,
-    alignItems: "center"
+    // alignItems: "center"
   }
 });
 

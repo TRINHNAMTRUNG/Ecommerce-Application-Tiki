@@ -2,6 +2,7 @@ import { Image, StyleSheet } from "react-native";
 import { View, Text } from "react-native";
 import image from "../../assets/thumb/backgr_image.png"
 const CardProduct = ({ product }) => {
+
     return (
         <View style={styleCardProduct.containerCard}>
             <View style={styleCardProduct.frameImage}>
@@ -14,7 +15,7 @@ const CardProduct = ({ product }) => {
                 </View>
                 <Text style={styleCardProduct.textPrice}>{product.price} VND</Text>
                 <View style={styleCardProduct.wrapDiscount}>
-                    <Text style={styleCardProduct.textDiscount}>{product.discount}%</Text>
+                    <Text style={styleCardProduct.textDiscount}>-{product.discount}%</Text>
                     <Text style={styleCardProduct.textOriginalPrice}>{product.originalPrice} VND</Text>
                 </View>
             </View>
@@ -33,22 +34,27 @@ const styleCardProduct = StyleSheet.create({
         marginRight: 10,
         borderRadius: 10,
         padding: 8,
-        backgroundColor: "#ccf4f7"
+        backgroundColor: "white",
+        borderColor: "#f2f2f2",
+        borderWidth: 1.5
     },
     frameImage: {
         flex: 1,
         marginBottom: 8
     },
-    imageProd: {
-        width: "100%",
-        height: "100%",
-        borderRadius: 10
-    },
     frameContent: {
         flex: 1
     },
     frameType: {
-        flex: 0.25,
+        flex: 0.17,
+        justifyContent: "flex-end",
+        borderTopWidth: 1,
+        borderColor: "#f2f2f2"
+    },
+    imageProd: {
+        width: "100%",
+        height: "100%",
+        borderRadius: 5
     },
     frameTitle: {
         fontSize: 12,
@@ -75,7 +81,10 @@ const styleCardProduct = StyleSheet.create({
         borderRadius: 8,
         fontSize: 12,
         fontWeight: "700",
-        backgroundColor: "#F4F4F9"
+        backgroundColor: "#F4F4F9",
+        marginRight: 4,
+        minWidth: 32,
+        textAlign: "center"
     },
     textOriginalPrice: {
         fontSize: 10,
@@ -87,7 +96,7 @@ const styleCardProduct = StyleSheet.create({
     },
     textType: {
         fontSize: 10,
-        fontWeight: 400,
+        fontWeight: "400",
         color: "#808089"
     }
 });

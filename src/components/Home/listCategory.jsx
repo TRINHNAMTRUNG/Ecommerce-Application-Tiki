@@ -27,15 +27,14 @@ const ListCategory = () => {
 
 const styleListCategory = StyleSheet.create({
     LsCategoryContainer: {
-        width: "90%",
+        width: "100%",
         maxHeight: 200,
         flexWrap: "wrap",
         flexDirection: "row",
         justifyContent: "space-between",
-        borderRadius: 10,
-        marginTop: 4,
+        marginTop: 8,
         backgroundColor: "#FFFFFF",
-        padding: 12,
+        padding: 16,
         paddingBottom: 4,
         overflow: "hidden",
         overflow: "scroll"
