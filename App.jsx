@@ -1,17 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import HomePage from './src/pages/Home/homePage';
+
 import Layout from './src/routes/layout';
 import { enableScreens } from 'react-native-screens';
 enableScreens();
+
 export default function App() {
   return (
-    // <View style={styles.container}>
-    //   <Text>Open up App.js to start working on your app!</Text>
-    //   <StatusBar style="auto" />
-    // </View>
-    // <View style={stylesApp.containerApp}>
-    // </View>
     <Layout />
   );
 }
