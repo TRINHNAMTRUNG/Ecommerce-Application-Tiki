@@ -8,6 +8,8 @@ import ShippingInfo from "../../components/DetailProduct/shippingInfo";
 import InfoSection from "../../components/DetailProduct/InfoSectionProduct";
 import ShoppingAssurance from "../../components/DetailProduct/shoppingAssurance";
 import DetailInfo from "../../components/DetailProduct/detailInfo";
+import CustomerReview from "../../components/DetailProduct/customerReview";
+
 
 const DetailProductPage = () => {
   const [isButtonVisible, setIsButtonVisible] = useState(false);
@@ -37,6 +39,8 @@ const DetailProductPage = () => {
           <ButtonContainer />
           <ShoppingAssurance />
           <DetailInfo />
+          <CustomerReview/>
+
         </ScrollView>
         {/* Always show ButtonContainer at the bottom */}
         <View style={[styles.buttonContainer, { display: isButtonVisible ? 'none' : 'flex' }]}>
