@@ -1,46 +1,16 @@
 import React, { memo, useState } from 'react';
 import { View, ScrollView, StyleSheet, TouchableOpacity, Image, Button, TextInput, FlatList } from 'react-native';
-import SlideAvertisement from '../components/slideAvertisement.jsx';
-import ListCategory from '../components/listCategory.jsx';
-import FrameAddress from '../components/frameAddress.jsx';
-import BarSearch from '../components/barSearch.jsx';
 
+import SlideAvertisement from '../../components/Home/slideAvertisement.jsx'
+import ListCategory from '../../components/Home/listCategory.jsx'
+import FrameAddress from '../../components/Home/frameAddress.jsx';
+import BarSearch from '../../components/Home/barSearch.jsx';
 
-const FirstScreen = () => {
+import { dataAdvertisement, dataProduct } from '../../data/dataObject.js';
+import ListProduct from '../../components/Home/listProduct.jsx';
+
+const HomePage = () => {
   const [isFixed, setIsFixed] = useState(false);
-
-  const dataAdvertisement = [
-    {
-      id: 1,
-      title: "adv01",
-      src: require(`../../assets/listAdv/adv01.png`)
-    },
-    {
-      id: 2,
-      title: "adv02",
-      src: require(`../../assets/listAdv/adv02.png`)
-    },
-    {
-      id: 3,
-      title: "adv03",
-      src: require(`../../assets/listAdv/adv03.png`)
-    },
-    {
-      id: 4,
-      title: "adv04",
-      src: require(`../../assets/listAdv/adv04.png`)
-    },
-    {
-      id: 5,
-      title: "adv05",
-      src: require(`../../assets/listAdv/adv05.png`)
-    },
-    {
-      id: 6,
-      title: "adv06",
-      src: require(`../../assets/listAdv/adv06.png`)
-    }
-  ];
 
   const handleScroll = (e) => {
     const scrollPosition = e.nativeEvent.contentOffset.y;
@@ -67,14 +37,20 @@ const FirstScreen = () => {
 
         <View style={stylesHomePage.frameBody}>
           <ListCategory />
-          <ListCategory />
-          <ListCategory />
-          <ListCategory />
-          <ListCategory />
-          <ListCategory />
-          <ListCategory />
-          <ListCategory />
           <FrameAddress />
+          <View style={stylesHomePage.frameListProducts}>
+            <ListProduct dataProduct={dataProduct} />
+          </View>
+          <View style={stylesHomePage.frameListProducts}>
+            <ListProduct dataProduct={dataProduct} />
+          </View>
+          <View style={stylesHomePage.frameListProducts}>
+            <ListProduct dataProduct={dataProduct} />
+          </View>
+          <View style={stylesHomePage.frameListProducts}>
+            <ListProduct dataProduct={dataProduct} />
+          </View>
+
         </View>
       </ScrollView >
     </>
@@ -93,6 +69,9 @@ const stylesHomePage = StyleSheet.create({
     position: "relative",
     alignItems: "center",
   },
+  frameListProducts: {
+
+  },
   imageHeader: {
     position: "absolute",
     height: "65%",
@@ -107,8 +86,8 @@ const stylesHomePage = StyleSheet.create({
   },
   frameBody: {
     flex: 2,
-    alignItems: "center"
+    // alignItems: "center"
   }
 });
 
-export default memo(FirstScreen);
+export default memo(HomePage);
