@@ -1,17 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Provider } from 'react-redux';
+import store from './src/redux/store';
 import HomePage from './src/pages/Home/homePage';
 import DetailProductPage from './src/pages/DetailProduct/DetailProductPage';
+import Cartpage from './src/pages/Cartpage/cartPage';
+
 export default function App() {
   return (
-    // <View style={styles.container}>
-    //   <Text>Open up App.js to start working on your app!</Text>
-    //   <StatusBar style="auto" />
-    // </View>
-    <View style={stylesApp.containerApp}>
-      {/* <HomePage /> */}
-      <DetailProductPage/>
-    </View>
+    <Provider store={store}>
+      <View style={stylesApp.containerApp}>
+        {/* <HomePage /> */}
+        {/* <DetailProductPage/> */}
+        <Cartpage />
+        <StatusBar style="auto" />
+      </View>
+    </Provider>
   );
 }
 
