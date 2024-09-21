@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome6';
-
+import { useNavigation } from '@react-navigation/native';
 const HeaderNav = ({ isSearchVisible }) => {
+  const navigation = useNavigation();
   return (
     <View style={[styles.headerContainer, { backgroundColor: isSearchVisible ? 'white' : 'rgba(255, 255, 255, 0.7)' }]}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => { navigation.goBack() }}>
         <Icon name="angle-left" size={20} color="black" />
       </TouchableOpacity>
 
