@@ -1,22 +1,39 @@
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { dataCategory } from "../../data/dataObject";
+// import { dataCategory } from "../../data/dataObject";
 const colors = ['#BFEFFF', '#FFF2D0', '#F6D2FF', '#FFEAD7', '#BCC5FF', '#CBFEFF', '#D6FFBF', '#FFEBF6', '#FFB2B2', '#D1C8FF'];
-
-
+import { getListRootCategory } from "../../services/categoryService";
+import { useEffect, useState } from "react";
+import axios from "axios";
 const ListCategory = () => {
+
+    const [listRootCatg, setListRootCatg] = useState([]);
+    useEffect(() => {
+        console.log(">>>>");
+        fetchListRoot();
+    }, []);
+    const fetchListRoot = async () => {
+        try {
+            const res = await getListRootCategory();
+            if (res.data && res.success === true) {
+                setListRootCatg(res.data); // nếu dữ liệu bạn cần nằm trong res.data.data
+            }
+        } catch (error) {
+        }
+    }
+    // console.log(">>>>");
     return (
         <View style={styleListCategory.LsCategoryContainer}>
-            {dataCategory && dataCategory.length !== 0 && colors.length === dataCategory.length &&
-                dataCategory.map((item, index) => {
+            {listRootCatg && listRootCatg.length !== 0 && colors.length === listRootCatg.length &&
+                listRootCatg.map((item, index) => {
                     return (
                         <View style={styleListCategory.cardCategory} key={`catg-${index}`}>
                             <TouchableOpacity >
                                 <LinearGradient colors={[colors[index], '#FFFFFF']} style={styleListCategory.itemCategory}>
-                                    <Image source={item.src} style={styleListCategory.imageCategory} />
+                                    <Image source={{ uri: item.image }} style={styleListCategory.imageCategory} />
                                 </LinearGradient>
                             </TouchableOpacity>
-                            <Text style={styleListCategory.nameCategory} numberOfLines={2}> {item.title} </Text>
+                            <Text style={styleListCategory.nameCategory} numberOfLines={2}> {item.name} </Text>
                         </View>
                     )
                 })
@@ -62,7 +79,7 @@ const styleListCategory = StyleSheet.create({
     nameCategory: {
         textAlign: "center",
         flexWrap: 'wrap',
-        width: 50,
+        width: 60,
         fontSize: 10,
         fontWeight: "500",
         marginBottom: 8,

@@ -1,14 +1,16 @@
 
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
+import { useSelector } from "react-redux";
 import MainTabNavigator from "./mainTabNavigation";
-
+import LoginStackScreen from "./loginStackScreen";
 const Layout = () => {
-    const Stack = createNativeStackNavigator();
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+    console.log("=?>>>> auth: ", isAuthenticated);
     return (
         <NavigationContainer>
-            <MainTabNavigator />
+            {
+                isAuthenticated ? <MainTabNavigator /> : <LoginStackScreen />
+            }
         </NavigationContainer>
     )
 }
