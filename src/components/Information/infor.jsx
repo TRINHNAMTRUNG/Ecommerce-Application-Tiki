@@ -2,28 +2,24 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-const Infor = ({ navigation }) => {
+const Infor = ({  }) => {
   return (
     <View style={styles.container}>
     
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <FontAwesome5 name="arrow-left" size={24} color="white" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Thông tin tài khoản</Text>
+       
       </View>
 
-    
       <View style={styles.profileContainer}>
         <View style={styles.profilePicture}>
           <Image
             source={{
-              uri: 'https://storage.googleapis.com/a1aa/image/5Qt36Kb1IvqqLh7Qc11jvcqdvHPPvl5eIbE38giaE9yL1k4JA.jpg',
+              uri: 'https://storage.googleapis.com/a1aa/image/F0TlmWXjVZ4xI591D9vfS8ZnmxTX8ZNf98mX1ecdwlFP9SinA.jpg',
             }}
             style={styles.profileImage}
           />
           <TouchableOpacity style={styles.editIcon}>
-            <FontAwesome5 name="pencil-alt" size={16} color="white" />
+            <FontAwesome5 name="pencil-alt" size={16} color="white"/>
           </TouchableOpacity>
         </View>
       </View>
@@ -33,7 +29,7 @@ const Infor = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-   
+    flex: 1,
     backgroundColor: '#f0f0f0',
   },
   header: {

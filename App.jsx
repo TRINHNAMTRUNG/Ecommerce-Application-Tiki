@@ -7,6 +7,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './src/store/store';
 import LoadingSpinner from './src/components/loadingSpinner';
 import { ModalProvider, ModelAccept } from './src/components/modelDialog';
+
+
 export default function App() {
   return (
     <Provider store={store}>

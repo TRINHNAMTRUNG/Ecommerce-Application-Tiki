@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import EditInputScreen from '../../components/Information/editInfor';
 
-const CategoryPage = () => {
+const EditInforPage = () => {
     return (
     <ScrollView contentContainerStyle={styles.container}>
       <EditInputScreen />
@@ -15,4 +15,4 @@ const styles = StyleSheet.create({
   
 });
 
-export default CategoryPage;
+export default EditInforPage;

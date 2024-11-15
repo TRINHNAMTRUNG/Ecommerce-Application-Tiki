@@ -66,43 +66,43 @@ const Register = ({ navigation }) => {
     const { openModal } = useModal();
 
     const handleRegister = async () => {
-        navigation.navigate("OtpPage");
-        // validate.current = 1; // Đặt validate.current = 1 ngay khi nhấn "Tiếp tục"
-        // const dataRegister = {
-        //     customerName,
-        //     email,
-        //     phoneNumber,
-        //     password,
-        //     role: "customer"
-        // }
-        // try {
-        //     const result = await registerSvc(dataRegister);
-        //     if (result.success === true) {
-        //         openModal("Đăng ký thành công!", "success");
-        //         navigation.navigate("Login", { dataLogin: { phoneNumber, password } });
-        //     } else {
-        //         console.log(result)
-        //         openModal(result.errors[0], "error");
-        //     }
-        // } catch (error) {
-        //     error.errors.forEach((detail) => {
-        //         if (detail.context.key === "customerName") {
-        //             setValidCustomerName(detail.message);
-        //         }
-        //         if (detail.context.key === "email") {
-        //             setValidEmail(detail.message);
-        //         }
-        //         if (detail.context.key === "phoneNumber") {
-        //             setValidPhoneNumber(detail.message);
-        //         }
-        //         if (detail.context.key === "password") {
-        //             setValidPassword(detail.message);
-        //         }
-        //     });
-        //     if (!passConfirm) {
-        //         setValidPassConfirm("Mật khẩu không được trống");
-        //     }
-        // }
+        // navigation.navigate("OtpPage");
+        validate.current = 1; // Đặt validate.current = 1 ngay khi nhấn "Tiếp tục"
+        const dataRegister = {
+            customerName,
+            email,
+            phoneNumber,
+            password,
+            role: "customer"
+        }
+        try {
+            const result = await registerSvc(dataRegister);
+            if (result.success === true) {
+                openModal("Đăng ký thành công!", "success");
+                navigation.navigate("Login", { dataLogin: { phoneNumber, password } });
+            } else {
+                console.log(result)
+                openModal(result.errors[0], "error");
+            }
+        } catch (error) {
+            error.errors.forEach((detail) => {
+                if (detail.context.key === "customerName") {
+                    setValidCustomerName(detail.message);
+                }
+                if (detail.context.key === "email") {
+                    setValidEmail(detail.message);
+                }
+                if (detail.context.key === "phoneNumber") {
+                    setValidPhoneNumber(detail.message);
+                }
+                if (detail.context.key === "password") {
+                    setValidPassword(detail.message);
+                }
+            });
+            if (!passConfirm) {
+                setValidPassConfirm("Mật khẩu không được trống");
+            }
+        }
     }
     const validateField = (value, schema, setError) => {
         if (validate.current !== 0) {

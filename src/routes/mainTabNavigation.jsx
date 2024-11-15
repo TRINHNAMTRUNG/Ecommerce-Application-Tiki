@@ -10,6 +10,7 @@ import { StyleSheet, Text, TouchableNativeFeedback, TouchableOpacity, View } fro
 import HomeStackScreen from "./homeStackScreen";
 import HomeDetail from "../pages/Home/homeDetail";
 import UserStackScreen from "./userStackScreen";
+import CategoryStackScreen from "./categoryStackScreen";
 
 const MainTabNavigator = () => {
     const Tab = createBottomTabNavigator();
@@ -61,11 +62,11 @@ const MainTabNavigator = () => {
             />
             <Tab.Screen
                 name="ActivityStack"
-                component={HomeStackScreen}
+                component={CategoryStackScreen}
                 options={{
                     tabBarLabel: ({ focused }) => (
                         <Text style={focused ? styleTab.labelFocus : styleTab.labelUnFocus}>
-                            Hoạt động
+                            Danh mục
                         </Text>
                     ),
                 }}
