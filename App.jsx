@@ -13,10 +13,12 @@
 
 import React from 'react';
 // import CartPage from './src/pages/Cart/CartPage';
-import PromoPage from './src/pages/Promo/promoPage';
+// import PromoPage from './src/pages/Promo/promoPage';
+
+import CategoryPage from './src/pages/Category/CategoryPage';
 const App = () => {
     return (
-        <PromoPage/>
+        <CategoryPage/>
     );
 };
 
