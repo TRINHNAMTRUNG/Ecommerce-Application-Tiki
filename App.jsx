@@ -15,10 +15,15 @@ import React from 'react';
 // import CartPage from './src/pages/Cart/CartPage';
 // import PromoPage from './src/pages/Promo/promoPage';
 
-import CategoryPage from './src/pages/Category/CategoryPage';
+// import CategoryPage from './src/pages/Category/CategoryPage';
+
+// import ProfilePage from './src/pages/Profile/ProfilePage';
+
+// import InforPage from './src/pages/Profile/InforPage';
+import EditInforPage from './src/pages/Profile/EditInforPage'
 const App = () => {
     return (
-        <CategoryPage/>
+        <EditInforPage/>
     );
 };
 
