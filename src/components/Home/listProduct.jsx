@@ -1,10 +1,10 @@
 
-import { useEffect, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 import { View, Image, Text, StyleSheet, FlatList } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CardProduct from "./cardProduct";
 import titleDeal from "../../assets/thumb/titleDeal.png"
-const ListProduct = ({ dataProduct }) => {
+const ListProduct = ({ listTopDeal }) => {
 
   return (
     <View style={stylesListProduct.containerListProduct}>
@@ -14,9 +14,9 @@ const ListProduct = ({ dataProduct }) => {
       </View>
       <FlatList
         style={stylesListProduct.frameListProduct}
-        data={dataProduct}
+        data={listTopDeal}
         renderItem={({ item }) => <CardProduct product={item} />}
-        keyExtractor={(item) => `prod-${item.id}`}
+        keyExtractor={(item) => `prod- ${item._id}`}
         showsHorizontalScrollIndicator={false}
         horizontal={true}
       />
@@ -54,4 +54,4 @@ const stylesListProduct = StyleSheet.create({
   }
 });
 
-export default ListProduct;
+export default memo(ListProduct);

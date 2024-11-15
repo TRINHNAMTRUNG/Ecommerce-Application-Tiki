@@ -1,24 +1,35 @@
 import { Image, Pressable, StyleSheet } from "react-native";
 import { View, Text } from "react-native";
 import image from "../../assets/thumb/backgr_image.png"
-
 import { useNavigation } from '@react-navigation/native';
+import { AirbnbRating } from "react-native-ratings";
+
+const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('vi-VN').format(amount);
+};
+
 const CardProduct = ({ product }) => {
     const navigation = useNavigation();
     return (
         <Pressable style={styleCardProduct.containerCard} onPress={() => { navigation.navigate("productDetail") }}>
             <View style={styleCardProduct.frameImage}>
-                <Image source={require = image} style={styleCardProduct.imageProd} />
+                <Image source={{ uri: product.images[0] }} style={styleCardProduct.imageProd} />
             </View>
             <View style={styleCardProduct.frameContent}>
-                <Text style={styleCardProduct.frameTitle} numberOfLines={2} ellipsizeMode='tail'>{product.title}</Text>
+                <Text style={styleCardProduct.frameTitle} numberOfLines={2} ellipsizeMode='tail'>{product.name}</Text>
                 <View style={styleCardProduct.frameRating}>
-
+                    <AirbnbRating
+                        count={5}
+                        size={14}
+                        defaultRating={product.ratingAverage}
+                        showRating={false}
+                        starContainerStyle={{ alignSelf: "flex-start" }}
+                    />
                 </View>
-                <Text style={styleCardProduct.textPrice}>{product.price} VND</Text>
+                <Text style={styleCardProduct.textPrice}>{formatCurrency(product.price * 0.45)} VND</Text>
                 <View style={styleCardProduct.wrapDiscount}>
-                    <Text style={styleCardProduct.textDiscount}>-{product.discount}%</Text>
-                    <Text style={styleCardProduct.textOriginalPrice}>{product.originalPrice} VND</Text>
+                    <Text style={styleCardProduct.textDiscount}>-45%</Text>
+                    <Text style={styleCardProduct.textOriginalPrice}> {formatCurrency(product.price)} VND</Text>
                 </View>
             </View>
             <View style={styleCardProduct.frameType}>
@@ -59,19 +70,19 @@ const styleCardProduct = StyleSheet.create({
         borderRadius: 5
     },
     frameTitle: {
-        fontSize: 12,
+        fontSize: 13,
         fontWeight: "400",
-        marginBottom: 4
+        marginBottom: 4,
     },
     frameRating: {
         height: 18,
-        backgroundColor: "pink",
         marginBottom: 4
     },
     textPrice: {
         color: "#FF424E",
-        fontWeight: "700",
-        marginBottom: 4
+        fontWeight: "500",
+        marginBottom: 4,
+        fontSize: 16
     },
     wrapDiscount: {
         flex: 0.6,
@@ -89,7 +100,7 @@ const styleCardProduct = StyleSheet.create({
         textAlign: "center"
     },
     textOriginalPrice: {
-        fontSize: 10,
+        fontSize: 12,
         fontWeight: "400",
         textDecorationLine: "line-through",
         color: "gray",

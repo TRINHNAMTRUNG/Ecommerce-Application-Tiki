@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { View, ScrollView, StyleSheet, TouchableOpacity, Image, Text, TextInput, FlatList, StatusBar } from 'react-native';
 
 import SlideAvertisement from '../../components/Home/slideAvertisement.jsx';
@@ -8,9 +8,29 @@ import BarSearch from '../../components/Home/barSearch.jsx';
 
 import { dataAdvertisement, dataProduct } from '../../data/dataObject.js';
 import ListProduct from '../../components/Home/listProduct.jsx';
-
+import { getListTopDeal } from "../../services/productService.js";
+import { useDispatch } from 'react-redux';
+import { actionLogout } from '../../store/Action/authAction.js';
 const HomePage = ({ navigation }) => {
   const [isFixed, setIsFixed] = useState(false);
+  const [listTopDeal, setListTopDeal] = useState([]);
+  useEffect(() => {
+    fetchListTopDeal();
+  }, []);
+  const fetchListTopDeal = async () => {
+    try {
+      const res = await getListTopDeal();
+      if (res.data && res.success === true) {
+        setListTopDeal(res.data); // nếu dữ liệu bạn cần nằm trong res.data.data
+      }
+    } catch (error) {
+
+    }
+  }
+  const dispatch = useDispatch();
+  const handleLogOut = () => {
+    dispatch(actionLogout())
+  }
 
   const handleScroll = (e) => {
     const scrollPosition = e.nativeEvent.contentOffset.y;
@@ -38,18 +58,18 @@ const HomePage = ({ navigation }) => {
           <ListCategory />
           <FrameAddress />
           <View style={stylesHomePage.frameListProducts}>
-            <ListProduct dataProduct={dataProduct} />
+            <ListProduct listTopDeal={listTopDeal} />
           </View>
           <View style={stylesHomePage.frameListProducts}>
-            <ListProduct dataProduct={dataProduct} />
+            <ListProduct listTopDeal={listTopDeal} />
           </View>
           <View style={stylesHomePage.frameListProducts}>
-            <ListProduct dataProduct={dataProduct} />
+            <ListProduct listTopDeal={listTopDeal} />
           </View>
           <View style={stylesHomePage.frameListProducts}>
-            <ListProduct dataProduct={dataProduct} />
+            <ListProduct listTopDeal={listTopDeal} />
           </View>
-          <TouchableOpacity style={{ backgroundColor: "pink", width: 200, padding: 10, borderRadius: 10, margin: 10 }} onPress={() => { navigation.navigate("homeDetail") }}>
+          <TouchableOpacity style={{ backgroundColor: "pink", width: 200, padding: 10, borderRadius: 10, margin: 10 }} onPress={() => handleLogOut()}>
             <Text style={{ textAlign: "center" }}>Go HomeDetail</Text>
           </TouchableOpacity>
         </View>

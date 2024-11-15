@@ -1,34 +1,24 @@
 
-// import Layout from './src/routes/layout';
-// import { enableScreens } from 'react-native-screens';
-// enableScreens();
-
-
-// export default function App() {
-//   return (
-//     <Layout />
-//   );
-// }
-
-
-import React from 'react';
-// import CartPage from './src/pages/Cart/CartPage';
-// import PromoPage from './src/pages/Promo/promoPage';
-
-// import CategoryPage from './src/pages/Category/CategoryPage';
-
-// import ProfilePage from './src/pages/Profile/ProfilePage';
-
-// import InforPage from './src/pages/Profile/InforPage';
-import EditInforPage from './src/pages/Profile/EditInforPage'
-const App = () => {
-    return (
-        <EditInforPage/>
-    );
-};
-
-export default App;
-
+import Layout from './src/routes/layout';
+import { enableScreens } from 'react-native-screens';
+enableScreens();
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './src/store/store';
+import LoadingSpinner from './src/components/loadingSpinner';
+import { ModalProvider, ModelAccept } from './src/components/modelDialog';
+export default function App() {
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <LoadingSpinner />
+        <ModalProvider>
+          <Layout />
+        </ModalProvider>
+      </PersistGate>
+    </Provider>
+  );
+}
 
 // const stylesApp = StyleSheet.create({
 //   containerApp: {
