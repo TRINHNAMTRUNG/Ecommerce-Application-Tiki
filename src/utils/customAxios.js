@@ -3,7 +3,7 @@ import axios from "axios";
 import { store } from "../store/store";
 import { showLoading, hidenLoading } from "../store/Action/loadingAction";
 const instance = axios.create({
-    baseURL: 'http://localhost:8086/v1/api/'
+    baseURL: 'https://7cfe-1-53-50-209.ngrok-free.app/v1/api/'
 });
 // Add a request interceptor
 instance.interceptors.request.use(
@@ -33,7 +33,7 @@ instance.interceptors.response.use(function (response) {
     // Do something with response error
     // console.log("check error response: ", error);
     // console.log("check error response >>> 2: ", error.response);
-    return error && error.response && error.response.errors ? error.response.errors[0] : Promise.reject(error);
+    return error && error.response && error.response.data ? error.response.data : Promise.reject(error);
 });
 
 export default instance;

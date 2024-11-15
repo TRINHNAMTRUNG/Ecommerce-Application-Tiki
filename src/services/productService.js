@@ -5,17 +5,22 @@ import axios from "../utils/customAxios"
 
 
 const getListTopDeal = async () => {
+    let limit = 8;
+    let page = 1;
     try {
-        const response = await axios.get("product/top-deal?limit=8&page=1", {
-            headers: {
-                "Content-Type": "application/json"
+        const response = await axios.get(
+            `product/top-deal?limit=${limit}&page=${page}`,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                }
             }
-        });
-
-        return response;  // Trả về phần dữ liệu mà bạn cần
+        );
+        return response;
     } catch (error) {
         console.error("Error fetching category data:", error);
-        return { success: false };  // Đảm bảo trả về một đối tượng với `success` nếu có lỗi
+        return error;
     }
 };
 

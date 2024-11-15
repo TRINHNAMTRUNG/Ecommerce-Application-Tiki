@@ -10,7 +10,7 @@ const LoadingSpinner = () => {
         <Spinner
             visible={isLoading}
             textContent={'Loading...'}
-            textStyle={{ color: '#FFF' }}
+            textStyle={{ color: '#0D6AFF' }}
         />
     );
 };

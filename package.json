@@ -10,6 +10,7 @@
     "devtools": "react-devtools"
   },
   "dependencies": {
+    "@expo/metro-runtime": "~3.2.3",
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@fortawesome/free-regular-svg-icons": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
@@ -25,6 +26,7 @@
     "expo-linear-gradient": "^13.0.2",
     "expo-status-bar": "~1.12.1",
     "expo-updates": "~0.25.24",
+    "joi": "^17.13.3",
     "react": "18.2.0",
     "react-dom": "^18.2.0",
     "react-native": "0.74.5",
@@ -40,8 +42,7 @@
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-persist": "^6.0.0",
-    "redux-thunk": "^2.4.1",
-    "@expo/metro-runtime": "~3.2.3"
+    "redux-thunk": "^2.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
