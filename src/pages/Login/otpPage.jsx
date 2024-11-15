@@ -2,9 +2,17 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { memo, useState, useRef, useEffect } from 'react';
+import { useModal } from '../../components/modelDialog';
+import { verifyOtp } from '../../services/authService';
+import Joi from 'joi';
 
 const OtpPage = ({ navigation, route }) => {
+    let stateParams;
+    if (route?.params) {
+        stateParams = route.params;
+    }
     const [code, setCode] = useState({ first: '', second: '', third: '', fourth: '', fifth: '', sixth: '' });
+    const { openModal } = useModal();
     // Tạo các ref cho các TextInput
     const inputRefs = {
         first: useRef(null),
@@ -19,17 +27,49 @@ const OtpPage = ({ navigation, route }) => {
     }, [])
 
     const handleChangeText = (text, name, nextInput, prevInput) => {
-        setCode(prevState => ({
-            ...prevState,
-            [name]: text,
-        }));
+        console.log(text)
+        setCode(prevState => {
+            if (prevState[name] !== "" && prevState[nextInput] === "" && text !== "") {
+                inputRefs[nextInput].current.focus();
+                return {
+                    ...prevState,
+                    [nextInput]: text,
+                }
+            }
+            return {
+                ...prevState,
+                [name]: text,
+            }
+        });
 
         if (text === '' && prevInput) {
             inputRefs[prevInput].current.focus();
-        } else if (nextInput) {
+        } else if (nextInput && text !== "") {
             inputRefs[nextInput].current.focus();
         }
     };
+
+    const verifyCode = async () => {
+        const codeString = Object.values(code).join('');
+        const schemaOtp = Joi.string()
+            .trim()
+            .length(6)
+            .required()
+            .messages({
+                "*": "Số OTP không hợp lệ.",
+            })
+        const { error } = schemaOtp.validate(codeString);
+        if (error) {
+            openModal(error.details[0].messages, "error");
+        } else {
+            const result = await verifyOtp({ pinId: stateParams.pinId, pin: codeString });
+            if (result.success) {
+                stateParams.registerUser();
+            } else {
+                openModal(result.message, "error");
+            }
+        }
+    }
 
     return (
         <View style={styleOtpPage.container}>
@@ -100,7 +140,7 @@ const OtpPage = ({ navigation, route }) => {
                 <Text style={styleOtpPage.resendLink}>Gửi lại!</Text>
             </Text>
 
-            <TouchableOpacity style={styleOtpPage.signUpButton}>
+            <TouchableOpacity style={styleOtpPage.signUpButton} onPress={() => verifyCode()}>
                 <Text style={styleOtpPage.signUpButtonText}>Xác nhận</Text>
             </TouchableOpacity>
         </View>

@@ -1,12 +1,12 @@
 import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import React, { memo, useRef, useState } from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { registerSvc } from '../../services/authService';
+import { registerSvc, sendOtp } from '../../services/authService';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faCircleExclamation, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Joi from 'joi';
 import { useModal } from '../../components/modelDialog';
-
+import { schemaAccountJoi } from '../../models/authSchema';
 
 const Register = ({ navigation }) => {
     let validate = useRef(0);
@@ -65,9 +65,7 @@ const Register = ({ navigation }) => {
     const [validPassConfirm, setValidPassConfirm] = useState("");
     const { openModal } = useModal();
 
-    const handleRegister = async () => {
-        // navigation.navigate("OtpPage");
-        validate.current = 1; // Đặt validate.current = 1 ngay khi nhấn "Tiếp tục"
+    const registerUser = async () => {
         const dataRegister = {
             customerName,
             email,
@@ -102,6 +100,81 @@ const Register = ({ navigation }) => {
             if (!passConfirm) {
                 setValidPassConfirm("Mật khẩu không được trống");
             }
+            if (passConfirm && passConfirm !== password) {
+                setValidPassConfirm("Mật khẩu không khớp");
+            }
+        }
+    }
+
+    const handleRegister = async () => {
+<<<<<<< HEAD
+        // navigation.navigate("OtpPage");
+        validate.current = 1; // Đặt validate.current = 1 ngay khi nhấn "Tiếp tục"
+=======
+        validate.current = 1;
+>>>>>>> master
+        const dataRegister = {
+            customerName,
+            email,
+            phoneNumber,
+            password,
+            role: "customer"
+        }
+<<<<<<< HEAD
+        try {
+            const result = await registerSvc(dataRegister);
+            if (result.success === true) {
+                openModal("Đăng ký thành công!", "success");
+                navigation.navigate("Login", { dataLogin: { phoneNumber, password } });
+            } else {
+                console.log(result)
+                openModal(result.errors[0], "error");
+            }
+        } catch (error) {
+            error.errors.forEach((detail) => {
+=======
+        const { error } = schemaAccountJoi.validate(dataRegister, { abortEarly: false });
+        if (!error && passConfirm && passConfirm === password) {
+            try {
+                const result = await sendOtp(phoneNumber);
+                if (result.success) {
+                    navigation.navigate("OtpPage", { registerUser, pinId: result.data.pinId });
+                } else {
+                    openModal(result.message, "error");
+                }
+            } catch (error) {
+                openModal(error.message, "error");
+            }
+        } else if (error) {
+            console.log("???? error ", error);
+            error.details.forEach((detail) => {
+>>>>>>> master
+                if (detail.context.key === "customerName") {
+                    setValidCustomerName(detail.message);
+                }
+                if (detail.context.key === "email") {
+                    setValidEmail(detail.message);
+                }
+                if (detail.context.key === "phoneNumber") {
+                    setValidPhoneNumber(detail.message);
+                }
+                if (detail.context.key === "password") {
+                    setValidPassword(detail.message);
+                }
+            });
+<<<<<<< HEAD
+            if (!passConfirm) {
+                setValidPassConfirm("Mật khẩu không được trống");
+            }
+=======
+        } else {
+            if (!passConfirm) {
+                setValidPassConfirm("Mật khẩu không được trống");
+            }
+            if (passConfirm && passConfirm !== password) {
+                setValidPassConfirm("Mật khẩu không khớp");
+            }
+>>>>>>> master
         }
     }
     const validateField = (value, schema, setError) => {
@@ -116,6 +189,10 @@ const Register = ({ navigation }) => {
             <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
                 <ScrollView style={{ flex: 1 }}>
                     <View style={styles.container}>
+                        <TouchableOpacity style={styles.backLink} onPress={() => navigation.goBack()}>
+                            <FontAwesomeIcon icon={faArrowLeft} size={20} color="white" />
+                            <Text style={styles.backLinkText}>Trở lại</Text>
+                        </TouchableOpacity>
                         <Image source={require('../../assets/thumb/bglogin.png')} style={styles.imgBanner} />
                         <View style={styles.main}>
                             <TouchableOpacity style={styles.btnUpfile}>
@@ -296,7 +373,22 @@ const styles = StyleSheet.create({
     },
     container: {
         width: '100%',
-        backgroundColor: "white"
+        backgroundColor: "white",
+        position: "relative",
+    },
+    backLink: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        alignSelf: 'flex-start',
+        marginVertical: 20,
+        marginLeft: 20,
+        position: "absolute",
+        top: 0,
+        zIndex: 1
+    },
+    backLinkText: {
+        color: 'white',
+        marginLeft: 5,
     },
     imgBanner: {
         width: '100%',
@@ -340,6 +432,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         padding: 6
     },
+
 });
 
 export default memo(Register);
