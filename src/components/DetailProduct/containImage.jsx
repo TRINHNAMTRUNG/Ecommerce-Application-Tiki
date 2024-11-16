@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, memo } from 'react';
 import { View, Image, StyleSheet, Dimensions, TouchableOpacity, FlatList, ScrollView } from 'react-native';
 
 const { width } = Dimensions.get('window');
@@ -109,4 +109,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StrainerImage;
+export default memo(StrainerImage);

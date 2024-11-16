@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { View, Text, Image, FlatList, StyleSheet } from "react-native";
 
 const categories = [
@@ -74,53 +74,53 @@ const categories = [
       "https://storage.googleapis.com/a1aa/image/juRef6nhnpgKxEaniF98989WD4WlvwLp5NqzTcpBtltUHHxTA.jpg",
     name: "Balo và Vali",
   },
-  
+
 ];
 
 const CategoryGrid = () => (
-    <View style={styles.container}>
-      <Text style={styles.headerText}>Danh mục đang hot</Text>  
-      <FlatList
-        data={categories}
-        renderItem={({ item }) => (
-          <View style={styles.categoryItem}>
-            <Image style={styles.categoryImage} source={{ uri: item.image }} />
-            <Text style={styles.categoryText}>{item.name}</Text>
-          </View>
-        )}
-        keyExtractor={(item) => item.id}
-        numColumns={3}
-        style={styles.categoryGrid}
-      />
-    </View>
-  );
-  
-  const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        padding: 6,
-    },
-    headerText: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginVertical: 10,
-        color: '#333',  // Màu chữ tiêu đề
-    },
-    categoryItem: {
-        alignItems: "center",
-        margin: 2,
-        width: "30%",
-        textAlign: "center",
-    },
-    categoryImage: {
-        width: 70,
-        height: 70,
-        marginBottom: 10,
-    },
-    categoryGrid: {
-        flex: 1,
-    },
-  });
-  
-export default CategoryGrid;
+  <View style={styles.container}>
+    <Text style={styles.headerText}>Danh mục đang hot</Text>
+    <FlatList
+      data={categories}
+      renderItem={({ item }) => (
+        <View style={styles.categoryItem}>
+          <Image style={styles.categoryImage} source={{ uri: item.image }} />
+          <Text style={styles.categoryText}>{item.name}</Text>
+        </View>
+      )}
+      keyExtractor={(item) => item.id}
+      numColumns={3}
+      style={styles.categoryGrid}
+    />
+  </View>
+);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    padding: 6,
+  },
+  headerText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginVertical: 10,
+    color: '#333',  // Màu chữ tiêu đề
+  },
+  categoryItem: {
+    alignItems: "center",
+    margin: 2,
+    width: "30%",
+    textAlign: "center",
+  },
+  categoryImage: {
+    width: 70,
+    height: 70,
+    marginBottom: 10,
+  },
+  categoryGrid: {
+    flex: 1,
+  },
+});
+
+export default memo(CategoryGrid);

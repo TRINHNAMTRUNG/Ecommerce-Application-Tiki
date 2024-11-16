@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from 'react';
-import { View, ScrollView, StyleSheet, TouchableOpacity, Image, Text, TextInput, FlatList, StatusBar } from 'react-native';
+import { View, ScrollView, StyleSheet, TouchableOpacity, Image, Text, TextInput, FlatList, VirtualizedList } from 'react-native';
 
 import SlideAvertisement from '../../components/Home/slideAvertisement.jsx';
 import ListCategory from '../../components/Home/listCategory.jsx';
@@ -58,16 +58,16 @@ const HomePage = ({ navigation }) => {
           <ListCategory />
           <FrameAddress />
           <View style={stylesHomePage.frameListProducts}>
-            <ListProduct listTopDeal={listTopDeal} />
+            <ListProduct listTopDeal={listTopDeal} showHorizon={true} />
           </View>
           <View style={stylesHomePage.frameListProducts}>
-            <ListProduct listTopDeal={listTopDeal} />
+            <ListProduct listTopDeal={listTopDeal} showHorizon={true} />
           </View>
           <View style={stylesHomePage.frameListProducts}>
-            <ListProduct listTopDeal={listTopDeal} />
+            <ListProduct listTopDeal={listTopDeal} showHorizon={true} />
           </View>
           <View style={stylesHomePage.frameListProducts}>
-            <ListProduct listTopDeal={listTopDeal} />
+            <ListProduct listTopDeal={listTopDeal} showHorizon={false} />
           </View>
           <TouchableOpacity style={{ backgroundColor: "pink", width: 200, padding: 10, borderRadius: 10, margin: 10 }} onPress={() => handleLogOut()}>
             <Text style={{ textAlign: "center" }}>Go HomeDetail</Text>

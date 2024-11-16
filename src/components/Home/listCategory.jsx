@@ -3,7 +3,7 @@ import { LinearGradient } from "expo-linear-gradient";
 // import { dataCategory } from "../../data/dataObject";
 const colors = ['#BFEFFF', '#FFF2D0', '#F6D2FF', '#FFEAD7', '#BCC5FF', '#CBFEFF', '#D6FFBF', '#FFEBF6', '#FFB2B2', '#D1C8FF'];
 import { getListRootCategory } from "../../services/categoryService";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import axios from "axios";
 const ListCategory = () => {
 
@@ -87,4 +87,4 @@ const styleListCategory = StyleSheet.create({
     }
 })
 
-export default ListCategory;
+export default memo(ListCategory);

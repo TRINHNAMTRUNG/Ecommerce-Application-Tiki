@@ -1,6 +1,6 @@
 import { Image, StyleSheet } from "react-native";
 import { View, FlatList } from "react-native";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useRef } from "react";
 const SlideAdvertisement = ({ dataAdvertisement, isFixed }) => {
     const [indexSlide, setIndexSlide] = useState(0);
@@ -100,4 +100,4 @@ const stylesSlide = StyleSheet.create({
     }
 });
 
-export default SlideAdvertisement;
+export default memo(SlideAdvertisement);
