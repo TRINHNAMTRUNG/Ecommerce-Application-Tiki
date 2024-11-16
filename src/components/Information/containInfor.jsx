@@ -9,7 +9,7 @@ const ProfileInfo = ({ navigation }) => {
 
   const profileData = [
     { icon: 'user', label: 'Họ & Tên', value: dataUser.customerName, placeholder: "Nhập họ tên", key: "customerName" },
-    { icon: 'phone', label: 'Số điện thoại', value: dataUser.phoneNumber, placeholder: "Nhập số điện thoại", key: "phoneNumber" },
+    { icon: 'phone', label: 'Quốc tịch', value: dataUser.nationality, placeholder: "Nhập quốc tịch", key: "nationality" },
     { icon: 'envelope', label: 'Địa chỉ email', value: dataUser.email, placeholder: "Nhập địa chỉ email", key: "email" },
     { icon: 'venus-mars', label: 'NickName', value: dataUser.nickName ? dataUser.nickName : "", key: "nickName" },
     { icon: 'calendar-alt', label: 'Ngày sinh', value: dataUser.birthDate ? dataUser.birthDate : "", placeholder: "Chọn ngày sinh", key: "birthDate" },

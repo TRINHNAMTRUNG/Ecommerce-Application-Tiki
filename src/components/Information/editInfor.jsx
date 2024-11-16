@@ -12,13 +12,16 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { updateCustomer } from "../../services/customerService";
 import { useSelector } from "react-redux";
 import { useModal } from "../../components/modelDialog";
-
+import { useDispatch } from "react-redux";
+import { actionUpdate } from "../../store/Action/authAction";
 const EditInputScreen = ({ navigation, route }) => {
+  const dispatch = useDispatch();
   const dataField = route?.params?.dataField || {};
   const [value, setValue] = useState(dataField.value || "");
   const [isSaveEnabled, setIsSaveEnabled] = useState(false);
   const { openModal } = useModal();
   const dataUser = useSelector((state) => state.auth.user);
+  
   // Sử dụng useRef để tham chiếu đến TextInput
   const inputRef = useRef(null);
 
@@ -71,6 +74,7 @@ const EditInputScreen = ({ navigation, route }) => {
         );
         if (result.success) {
           // Hiển thị thông báo thành công sau khi cập nhật
+          dispatch(actionUpdate({ [dataField.key]: value }));
           openModal("Cập nhật thành công!", "success");
           navigation.goBack(); // Quay lại màn hình trước
         } else {

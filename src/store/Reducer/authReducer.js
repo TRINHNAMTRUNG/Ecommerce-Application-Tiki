@@ -23,7 +23,7 @@ const authReducer = (state = initialState, action) => {
         case UPDATE_USER:
             return {
                 ...state,
-                user: {...user, ...action.payload }
+                user: {...state.user, ...action.payload }
             }
         default:
             return state;

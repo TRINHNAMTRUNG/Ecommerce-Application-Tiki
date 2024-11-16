@@ -1,9 +1,8 @@
 import Joi from "joi";
 import axios from "../utils/customAxios"
-import { useDispatch } from "react-redux";
-import { actionUpdate } from "../store/Action/authAction";
+
 const updateCustomer = async(dataUpdate, field) => {
-    const dispatch = useDispatch();
+
 
     const customerUpdateSchemaJoi = {
         customerName: Joi.string()
@@ -32,8 +31,6 @@ const updateCustomer = async(dataUpdate, field) => {
     }
     try {
         const result = await axios.put("/customer", dataUpdate);
-        dispatch(actionUpdate({
-            [field]: dataUpdate[field] }))
         return result;
     } catch (error) {
         return error;
