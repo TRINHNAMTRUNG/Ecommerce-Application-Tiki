@@ -8,7 +8,7 @@ const ButtonContainer = () => {
         <Text style={styles.buttonText}>Mua ngay không cần đăng nhập</Text>
       </TouchableOpacity>
       <View style={styles.secondaryButtons}>
-        <TouchableOpacity style={styles.secondaryButton}>
+        <TouchableOpacity style={styles.secondaryButton} >
           <Text style={styles.buttonTextCard}>Thêm vào giỏ</Text>
         </TouchableOpacity>
       </View>
@@ -18,7 +18,7 @@ const ButtonContainer = () => {
 
 const styles = StyleSheet.create({
   container: {
-  
+
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
@@ -34,13 +34,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     marginBottom: 10,
     alignItems: 'center',
-    width: '100%', 
+    width: '100%',
     maxWidth: 350,
   },
   secondaryButtons: {
     flexDirection: 'row',
     width: '100%',
-    maxWidth: 360, 
+    maxWidth: 360,
   },
   secondaryButton: {
     backgroundColor: 'white',
@@ -50,16 +50,16 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 30,
     alignItems: 'center',
-    flex: 1, 
+    flex: 1,
     marginHorizontal: 5,
   },
   buttonText: {
-    color: 'white', 
+    color: 'white',
     fontSize: 16,
     fontWeight: '600'
   },
   buttonTextCard: {
-    color: 'blue', 
+    color: 'blue',
     fontSize: 16,
   },
 });

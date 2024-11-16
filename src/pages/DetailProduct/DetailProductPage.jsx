@@ -38,7 +38,7 @@ const DetailProductPage = ({ navigation, route }) => {
         <InforProduct product={product} />
         <InfoSection />
         <ShippingInfo />
-        <ButtonContainer />
+        <ButtonContainer product={product} />
         <ShoppingAssurance />
         <DetailInfo product={product} />
         <CustomerReview product={product} />

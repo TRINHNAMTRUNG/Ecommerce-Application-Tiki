@@ -2,12 +2,12 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-const Infor = ({}) => {
+const Infor = ({ }) => {
   return (
     <View style={styles.container}>
-    
+
       <View style={styles.header}>
-       
+
       </View>
 
       <View style={styles.profileContainer}>
@@ -19,7 +19,7 @@ const Infor = ({}) => {
             style={styles.profileImage}
           />
           <TouchableOpacity style={styles.editIcon} >
-            <FontAwesome5 name="pencil-alt" size={16} color="white"/>
+            <FontAwesome5 name="pencil-alt" size={16} color="white" />
           </TouchableOpacity>
         </View>
       </View>
@@ -30,7 +30,7 @@ const Infor = ({}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: 'white',
   },
   header: {
     backgroundColor: '#2196F3',
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
-    paddingBottom: 50, 
+    paddingBottom: 50,
   },
   profileContainer: {
     alignItems: 'center',

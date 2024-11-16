@@ -2,7 +2,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionLogout } from '../../store/Action/authAction.js';
 
 const ProfileInfo = ({ navigation }) => {
   const dataUser = useSelector((state) => state.auth.user);
@@ -16,12 +17,18 @@ const ProfileInfo = ({ navigation }) => {
     { icon: 'lock', label: 'Đổi mật khẩu', value: '', onPress: () => navigation.navigate("changePassword") },
   ];
 
+  const dispatch = useDispatch();
+  const handleLogOut = () => {
+    console.log("Bo m Log Out")
+    dispatch(actionLogout());
+  }
+
   return (
     <View style={styles.container}>
       {profileData.map((item, index) => (
-        <TouchableOpacity 
-          key={index} 
-          style={styles.item} 
+        <TouchableOpacity
+          key={index}
+          style={styles.item}
           onPress={() => navigation.navigate("setting", { dataField: item })}
         >
           <FontAwesome5 name={item.icon} size={20} color="#888" style={styles.icon} />
@@ -32,15 +39,19 @@ const ProfileInfo = ({ navigation }) => {
           <FontAwesome5 name="chevron-right" size={16} color="#888" style={styles.arrow} />
         </TouchableOpacity>
       ))}
+      <TouchableOpacity style={styles.mainButton} onPress={() => handleLogOut()}>
+        <Text style={styles.buttonText} >Đăng xuất</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f5f5f5',
     paddingVertical: 10,
     paddingHorizontal: 15,
+    flex: 1,
+    backgroundColor: "white"
   },
   item: {
     flexDirection: 'row',
@@ -65,6 +76,23 @@ const styles = StyleSheet.create({
   },
   arrow: {
     marginLeft: 10,
+  },
+  mainButton: {
+    backgroundColor: '#0072FF',
+    borderRadius: 5,
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    alignItems: 'center',
+    width: '100%',
+    maxWidth: 350,
+    justifyContent: "flex-end",
+    marginTop: 20,
+    marginBottom: 60,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600'
   },
 });
 

@@ -9,8 +9,7 @@ import BarSearch from '../../components/Home/barSearch.jsx';
 import { dataAdvertisement, dataProduct } from '../../data/dataObject.js';
 import ListProduct from '../../components/Home/listProduct.jsx';
 import { getListTopDeal } from "../../services/productService.js";
-import { useDispatch } from 'react-redux';
-import { actionLogout } from '../../store/Action/authAction.js';
+
 const HomePage = ({ navigation }) => {
   const [isFixed, setIsFixed] = useState(false);
   const [listTopDeal, setListTopDeal] = useState([]);
@@ -27,10 +26,7 @@ const HomePage = ({ navigation }) => {
 
     }
   }
-  const dispatch = useDispatch();
-  const handleLogOut = () => {
-    dispatch(actionLogout())
-  }
+
 
   const handleScroll = (e) => {
     const scrollPosition = e.nativeEvent.contentOffset.y;
@@ -69,9 +65,7 @@ const HomePage = ({ navigation }) => {
           <View style={stylesHomePage.frameListProducts}>
             <ListProduct listTopDeal={listTopDeal} showHorizon={false} />
           </View>
-          <TouchableOpacity style={{ backgroundColor: "pink", width: 200, padding: 10, borderRadius: 10, margin: 10 }} onPress={() => handleLogOut()}>
-            <Text style={{ textAlign: "center" }}>Go HomeDetail</Text>
-          </TouchableOpacity>
+
         </View>
       </ScrollView >
     </>
