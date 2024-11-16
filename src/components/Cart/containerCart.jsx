@@ -8,12 +8,12 @@ import PromoComponent from './promo';
 import PromoComponentTotal from './promoTotal';
 import Address from './address';
 
-const ContainerCart = ({navigation}) => {
+const ContainerCart = ({ navigation }) => {
     const [isAllChecked, setIsAllChecked] = useState(false);
-    const [isItemChecked, setIsItemChecked] = useState([false]); 
+    const [isItemChecked, setIsItemChecked] = useState([false]);
     const [quantity, setQuantity] = useState([1]);
     const productPrice = [99000];
-    const [subtotal, setSubtotal] = useState(0); 
+    const [subtotal, setSubtotal] = useState(0);
 
     const handleRemoveProduct = (index) => {
         Alert.alert(
@@ -70,78 +70,78 @@ const ContainerCart = ({navigation}) => {
     return (
         <View style={styles.container}>
             <View>
-            <ScrollView contentContainerStyle={styles.scrollView}>
-                <Address/>
-                <View style={styles.header}>
-                    <CheckBox checked={isAllChecked} onPress={handleCheckAll} />
-                    <Text style={styles.label}>Tất cả ({isItemChecked.length} sản phẩm)</Text>
-                    <TouchableOpacity onPress={() => handleRemoveProduct(0)}>
-                        <FontAwesomeIcon icon={faTrashAlt} style={styles.icon} />
-                    </TouchableOpacity>
-                </View>
+                <ScrollView contentContainerStyle={styles.scrollView}>
+                    <Address />
+                    <View style={styles.header}>
+                        <CheckBox checked={isAllChecked} onPress={handleCheckAll} />
+                        <Text style={styles.label}>Tất cả ({isItemChecked.length} sản phẩm)</Text>
+                        <TouchableOpacity onPress={() => handleRemoveProduct(0)}>
+                            <FontAwesomeIcon icon={faTrashAlt} style={styles.icon} />
+                        </TouchableOpacity>
+                    </View>
 
-                <View style={styles.headershop}>
-                    <CheckBox checked={isAllChecked} onPress={handleCheckAll} />
-                    <FontAwesomeIcon icon={faStore} style={styles.icon} color='blue' />
-                    <Text style={styles.label}>Tiki Trading</Text>
-                    <FontAwesomeIcon icon={faChevronRight} style={styles.icon} />
-                </View>
+                    <View style={styles.headershop}>
+                        <CheckBox checked={isAllChecked} onPress={handleCheckAll} />
+                        <FontAwesomeIcon icon={faStore} style={styles.icon} color='blue' />
+                        <Text style={styles.label}>Tiki Trading</Text>
+                        <FontAwesomeIcon icon={faChevronRight} style={styles.icon} />
+                    </View>
 
-                {isItemChecked.map((checked, index) => (
-                    <View key={index} style={[styles.container, styles.productBorder]}>
-                        <View style={styles.promo}>
-                            <Text>Mua thêm 2, giảm 5%</Text>
-                            <TouchableOpacity>
-                                <Text style={styles.link}>Chọn sản phẩm</Text>
-                            </TouchableOpacity>
-                        </View>
+                    {isItemChecked.map((checked, index) => (
+                        <View key={index} style={[styles.container, styles.productBorder]}>
+                            <View style={styles.promo}>
+                                <Text>Mua thêm 2, giảm 5%</Text>
+                                <TouchableOpacity>
+                                    <Text style={styles.link}>Chọn sản phẩm</Text>
+                                </TouchableOpacity>
+                            </View>
 
-                        <View style={styles.product}>
-                            <CheckBox
-                                checked={checked}
-                                onPress={() => {
-                                    const newCheckedItems = [...isItemChecked];
-                                    newCheckedItems[index] = !newCheckedItems[index];
-                                    setIsItemChecked(newCheckedItems);
-                                }}
-                            />
-                            <Image 
-                                style={styles.image}
-                                source={{ uri: 'https://storage.googleapis.com/a1aa/image/Lt9xp3aF5oJvMhf2JiEIqbvPE9Q951n3VcHCpnlRMe6P08pTA.jpg' }} 
-                            />
-                            <View style={styles.productDetails}>
-                                <View style={styles.badges}>
-                                    <Text style={styles.badgeOfficial}>CHÍNH HÃNG</Text>
-                                    <Text style={styles.badgeReturn}>30 NGÀY ĐỔI TRẢ</Text>
-                                </View>
-                                <Text style={styles.title}>25 Độ Âm</Text>
-                                <Text style={styles.productDetails}> 
-                                    <Text style={styles.price}>{productPrice[index]}₫</Text>
-                                    <Text style={styles.originalPrice}>158.000đ</Text>
-                                </Text>
-                                <View style={styles.delivery}>
-                                    <FontAwesomeIcon icon={faTruck} />
-                                    <Text>Giao thứ 2, 28/10</Text>
-                                </View>
-                                <Text style={styles.bookcare}>Có thể bọc bằng Bookcare</Text>
-                                <View style={styles.quantity}>
-                                    <TouchableOpacity style={styles.quantityButton} onPress={() => updateQuantity(index, -1)}><Text>-</Text></TouchableOpacity>
-                                    <TextInput style={styles.quantityInput} value={String(quantity[index])} />
-                                    <TouchableOpacity style={styles.quantityButton} onPress={() => updateQuantity(index, 1)}><Text>+</Text></TouchableOpacity>
-                                    <TouchableOpacity onPress={() => handleRemoveProduct(index)}>
-                                        <Text style={styles.remove}>Xóa</Text>
-                                    </TouchableOpacity>
+                            <View style={styles.product}>
+                                <CheckBox
+                                    checked={checked}
+                                    onPress={() => {
+                                        const newCheckedItems = [...isItemChecked];
+                                        newCheckedItems[index] = !newCheckedItems[index];
+                                        setIsItemChecked(newCheckedItems);
+                                    }}
+                                />
+                                <Image
+                                    style={styles.image}
+                                    source={{ uri: 'https://storage.googleapis.com/a1aa/image/Lt9xp3aF5oJvMhf2JiEIqbvPE9Q951n3VcHCpnlRMe6P08pTA.jpg' }}
+                                />
+                                <View style={styles.productDetails}>
+                                    <View style={styles.badges}>
+                                        <Text style={styles.badgeOfficial}>CHÍNH HÃNG</Text>
+                                        <Text style={styles.badgeReturn}>30 NGÀY ĐỔI TRẢ</Text>
+                                    </View>
+                                    <Text style={styles.title}>25 Độ Âm</Text>
+                                    <Text style={styles.productDetails}>
+                                        <Text style={styles.price}>{productPrice[index]}₫</Text>
+                                        <Text style={styles.originalPrice}>158.000đ</Text>
+                                    </Text>
+                                    <View style={styles.delivery}>
+                                        <FontAwesomeIcon icon={faTruck} />
+                                        <Text>Giao thứ 2, 28/10</Text>
+                                    </View>
+                                    <Text style={styles.bookcare}>Có thể bọc bằng Bookcare</Text>
+                                    <View style={styles.quantity}>
+                                        <TouchableOpacity style={styles.quantityButton} onPress={() => updateQuantity(index, -1)}><Text>-</Text></TouchableOpacity>
+                                        <TextInput style={styles.quantityInput} value={String(quantity[index])} />
+                                        <TouchableOpacity style={styles.quantityButton} onPress={() => updateQuantity(index, 1)}><Text>+</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => handleRemoveProduct(index)}>
+                                            <Text style={styles.remove}>Xóa</Text>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
                             </View>
                         </View>
-                    </View>
-                ))}
+                    ))}
 
-                <PromoComponent />
-                <PriceDisplay subtotal={subtotal} discount={0} />
-            </ScrollView>
+                    <PromoComponent />
+                    <PriceDisplay subtotal={subtotal} discount={0} navigation={navigation} />
+                </ScrollView>
             </View>
-        
+
             <View style={styles.fixedPromoContainer}>
                 <PromoComponentTotal subtotal={subtotal} quantity={quantity.reduce((a, b) => a + b, 0)} navigation={navigation} />
             </View>
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     scrollView: {
-        paddingBottom: 150, 
+        paddingBottom: 150,
     },
     fixedPromoContainer: {
         position: 'absolute',
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     },
     shadowOffset: {
         width: 0,
-        height: 2,  
+        height: 2,
     },
     header: {
         flexDirection: 'row',
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     },
     headershop: {
         flexDirection: 'row',
-        alignItems: 'center',  
+        alignItems: 'center',
     },
     label: {
         flexGrow: 1,
@@ -187,12 +187,12 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     productBorder: {
-        borderColor: '#FF6600', 
-        borderWidth: 1,        
+        borderColor: '#FF6600',
+        borderWidth: 1,
         borderRadius: 8,
         marginLeft: 2,
         marginRight: 2,
-        paddingBottom: 10,         
+        paddingBottom: 10,
     },
     promo: {
         flexDirection: 'row',
@@ -200,8 +200,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#ffe4b2',
         padding: 16,
-        borderTopLeftRadius: 8,  
-        borderTopRightRadius: 8,  
+        borderTopLeftRadius: 8,
+        borderTopRightRadius: 8,
         marginBottom: 10,
     },
     link: {
@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ddd',
         padding: 5,
-  
+
     },
     quantityInput: {
         width: 40,
@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ddd',
         textAlign: 'center',
- 
+
     },
     remove: {
         color: 'blue',

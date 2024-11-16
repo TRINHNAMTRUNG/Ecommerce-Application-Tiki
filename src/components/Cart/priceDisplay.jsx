@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const PriceDisplay = ({ subtotal, discount }) => {
+const PriceDisplay = ({ subtotal, discount, navigation }) => {
     const total = subtotal + discount; // Tính tổng tiền
 
     return (
@@ -36,14 +36,14 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginBottom: 10,
     },
-    rowDeal:{
+    rowDeal: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
         marginBottom: 10,
         paddingBottom: 6,
-   },
+    },
     bold: {
         fontWeight: 'bold',
     },

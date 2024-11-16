@@ -4,23 +4,23 @@ import Address from '../../components/Cart/address';
 import ContainerCart from '../../components/Cart/containerCart';
 import Header from '../../components/Cart/header';
 
-const CartPage = ({navigation}) => {
-    return (  
+const CartPage = ({ navigation }) => {
+    return (
         <View style={styles.container}>
-            <Header/>
+            <Header navigation={navigation} />
 
-            <ContainerCart navigation={navigation}/> 
+            <ContainerCart navigation={navigation} />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,  
+        flex: 1,
         backgroundColor: '#fff',
     },
     scrollContainer: {
-        
+
     },
 
 });

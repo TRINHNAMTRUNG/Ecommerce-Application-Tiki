@@ -43,7 +43,7 @@ const HomePage = ({ navigation }) => {
       <ScrollView style={stylesHomePage.frameContainer} onScroll={(e) => handleScroll(e)} scrollEventThrottle={16}>
         <View style={stylesHomePage.frameHeader}>
           <Image source={require("../../assets/thumb/backgr_image.png")} style={stylesHomePage.imageHeader} />
-          {isFixed === false && <BarSearch isFixed={isFixed} />}
+          {isFixed === false && <BarSearch isFixed={isFixed} navigation={navigation} />}
           <SlideAvertisement
             dataAdvertisement={dataAdvertisement}
             isFixed={isFixed}

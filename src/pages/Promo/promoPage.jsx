@@ -7,16 +7,16 @@ import DiscountCodeScreen from '../../components/Promo/discountCodeScreen';
 import ShippingCodeScreen from '../../components/Promo/shippingCodeScreen';
 import PromoFooter from '../../components/Promo/promoFooter';
 
-const PromoPage = () => {
+const PromoPage = ({ navigation }) => {
     return (
         <View style={styles.container}>
-            <PromoHeader />
+            <PromoHeader navigation={navigation} />
             <ScrollView contentContainerStyle={styles.scrollContainer}>
-     
+
                 <PromoCodeScreen />
                 <DiscountCodeScreen />
                 <ShippingCodeScreen />
-              
+
             </ScrollView>
             <PromoFooter />
         </View>

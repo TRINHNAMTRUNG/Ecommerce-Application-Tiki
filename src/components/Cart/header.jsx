@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons'; 
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
-const Header = () => {
+const Header = ({ navigation }) => {
     const handleClose = () => {
+        navigation.goBack();
         console.log('Đóng giỏ hàng');
     };
 
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
     closeIcon: {
         color: '#000',
     },
-  
+
 });
 
 export default Header;

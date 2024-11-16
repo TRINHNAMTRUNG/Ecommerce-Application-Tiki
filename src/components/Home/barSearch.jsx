@@ -1,7 +1,7 @@
 import { memo, useEffect, useRef } from "react";
 import { View, TouchableOpacity, TextInput, StyleSheet, Animated } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
-const BarSearch = ({ isFixed }) => {
+const BarSearch = ({ isFixed, navigation }) => {
     const fadeAnim = useRef(new Animated.Value(0)).current; // Bắt đầu với opacity 0
 
     useEffect(() => {
@@ -17,7 +17,7 @@ const BarSearch = ({ isFixed }) => {
                 style={stylesBarSearch.boxSearch}
                 placeholder='Freeship đơn từ 15k'
             />
-            <TouchableOpacity style={stylesBarSearch.buttonCart}>
+            <TouchableOpacity style={stylesBarSearch.buttonCart} onPress={() => navigation.navigate("cartPage")}>
                 <Icon name="shopping-cart" size={20} />
             </TouchableOpacity>
         </Animated.View>
