@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 import { View, TouchableOpacity, TextInput, StyleSheet, Animated } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 const BarSearch = ({ isFixed }) => {
@@ -67,4 +67,4 @@ const stylesBarSearch = StyleSheet.create({
 
 });
 
-export default BarSearch;
+export default memo(BarSearch);

@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import image from "../../assets/thumb/backgr_image.png"
 import { useNavigation } from '@react-navigation/native';
 import { AirbnbRating } from "react-native-ratings";
+import { memo } from "react";
 
 const formatCurrency = (amount) => {
     return new Intl.NumberFormat('vi-VN').format(amount);
@@ -44,15 +45,16 @@ const styleCardProduct = StyleSheet.create({
     containerCard: {
         width: 150,
         height: "100%",
+        minHeight: 300,
         marginRight: 10,
         borderRadius: 10,
         padding: 8,
         backgroundColor: "white",
         borderColor: "#f2f2f2",
-        borderWidth: 1.5
+        borderWidth: 1.5,
     },
     frameImage: {
-        flex: 1,
+        height: 120,
         marginBottom: 8
     },
     frameContent: {
@@ -113,4 +115,4 @@ const styleCardProduct = StyleSheet.create({
         color: "#808089"
     }
 });
-export default CardProduct;
+export default memo(CardProduct);
