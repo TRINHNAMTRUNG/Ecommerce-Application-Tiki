@@ -100,16 +100,18 @@ const CategoryGrid = () => (
         flex: 1,
         backgroundColor: '#fff',
         padding: 6,
+       
     },
     headerText: {
         fontSize: 18,
         fontWeight: 'bold',
-        marginVertical: 10,
+        marginVertical:10,
         color: '#333',  // Màu chữ tiêu đề
     },
     categoryItem: {
         alignItems: "center",
-        margin: 2,
+        margin: 4,
+        padding: 10,
         width: "30%",
         textAlign: "center",
     },
@@ -121,6 +123,10 @@ const CategoryGrid = () => (
     categoryGrid: {
         flex: 1,
     },
+    categoryText: {
+        fontSize: 12,
+    }
+    
   });
   
 export default CategoryGrid;

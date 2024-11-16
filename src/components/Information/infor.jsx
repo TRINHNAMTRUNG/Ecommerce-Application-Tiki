@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-const Infor = ({  }) => {
+const Infor = ({}) => {
   return (
     <View style={styles.container}>
     
@@ -18,7 +18,7 @@ const Infor = ({  }) => {
             }}
             style={styles.profileImage}
           />
-          <TouchableOpacity style={styles.editIcon}>
+          <TouchableOpacity style={styles.editIcon} >
             <FontAwesome5 name="pencil-alt" size={16} color="white"/>
           </TouchableOpacity>
         </View>

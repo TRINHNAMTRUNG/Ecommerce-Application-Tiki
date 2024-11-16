@@ -8,7 +8,7 @@ import PromoComponent from './promo';
 import PromoComponentTotal from './promoTotal';
 import Address from './address';
 
-const ContainerCart = () => {
+const ContainerCart = ({navigation}) => {
     const [isAllChecked, setIsAllChecked] = useState(false);
     const [isItemChecked, setIsItemChecked] = useState([false]); 
     const [quantity, setQuantity] = useState([1]);
@@ -143,7 +143,7 @@ const ContainerCart = () => {
             </View>
         
             <View style={styles.fixedPromoContainer}>
-                <PromoComponentTotal subtotal={subtotal} quantity={quantity.reduce((a, b) => a + b, 0)} />
+                <PromoComponentTotal subtotal={subtotal} quantity={quantity.reduce((a, b) => a + b, 0)} navigation={navigation} />
             </View>
         </View>
     );

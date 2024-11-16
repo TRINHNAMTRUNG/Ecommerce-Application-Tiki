@@ -3,10 +3,11 @@ import { View, Text, StyleSheet } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
-const PromoHeader = () => {
+const PromoHeader = ({navigation}) => {
+
     return (
         <View style={styles.header}>
-            <FontAwesomeIcon icon={faChevronLeft} size={20} color="#ffffff" style={styles.icon} />
+            <FontAwesomeIcon icon={faChevronLeft} size={20} color="#ffffff" style={styles.icon}/>
             <Text style={styles.title}>Mã Khuyến Mãi</Text>
         </View>
     );

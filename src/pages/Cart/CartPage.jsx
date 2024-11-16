@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import Address from '../../components/Cart/address';
 import ContainerCart from '../../components/Cart/containerCart';
 import Header from '../../components/Cart/header';
 
-const CartPage = () => {
+const CartPage = ({navigation}) => {
     return (  
         <View style={styles.container}>
             <Header/>
 
-            <ContainerCart /> 
+            <ContainerCart navigation={navigation}/> 
         </View>
     );
 };
@@ -25,4 +25,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default CartPage;
+export default memo(CartPage);

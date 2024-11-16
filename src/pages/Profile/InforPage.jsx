@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import Infor from '../../components/Information/infor';
 import ProfileInfo from '../../components/Information/containInfor'
-const InforPage = () => {
+const InforPage = ({navigation}) => {
     return (
         <ScrollView contentContainerStyle={styles.container} >
             <Infor />
-            <ProfileInfo />
+            <ProfileInfo navigation = {navigation}/>
         </ScrollView>
     );
 };
@@ -15,4 +15,4 @@ const styles = StyleSheet.create({
   
 });
 
-export default InforPage;
+export default memo(InforPage);

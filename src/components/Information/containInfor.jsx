@@ -1,23 +1,29 @@
+// ProfileInfo.js
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { useSelector } from 'react-redux';
 
-const ProfileInfo = () => {
+const ProfileInfo = ({ navigation }) => {
+  const dataUser = useSelector((state) => state.auth.user);
+
   const profileData = [
-    { icon: 'user', label: 'Họ & Tên', value: 'Phạm Phương Ngọc' },
-    { icon: 'user-tag', label: 'Nickname', value: 'Thêm nickname' },
-    { icon: 'calendar-alt', label: 'Ngày sinh', value: 'Thêm ngày, tháng, năm sinh' },
-    { icon: 'venus-mars', label: 'Giới tính', value: 'Nam' },
-    { icon: 'flag', label: 'Quốc tịch', value: 'Thêm thông tin quốc tịch' },
-    { icon: 'phone', label: 'Số điện thoại', value: '0398454090' },
-    { icon: 'envelope', label: 'Địa chỉ email', value: 'truongdinhduy0119a@gmail.com' },
-    { icon: 'lock', label: 'Đổi mật khẩu', value: '' },
+    { icon: 'user', label: 'Họ & Tên', value: dataUser.customerName, placeholder: "Nhập họ tên", key: "customerName" },
+    { icon: 'phone', label: 'Số điện thoại', value: dataUser.phoneNumber, placeholder: "Nhập số điện thoại", key: "phoneNumber" },
+    { icon: 'envelope', label: 'Địa chỉ email', value: dataUser.email, placeholder: "Nhập địa chỉ email", key: "email" },
+    { icon: 'venus-mars', label: 'NickName', value: dataUser.nickName ? dataUser.nickName : "", key: "nickName" },
+    { icon: 'calendar-alt', label: 'Ngày sinh', value: dataUser.birthDate ? dataUser.birthDate : "", placeholder: "Chọn ngày sinh", key: "birthDate" },
+    { icon: 'lock', label: 'Đổi mật khẩu', value: '', onPress: () => navigation.navigate("changePassword") },
   ];
 
   return (
     <View style={styles.container}>
       {profileData.map((item, index) => (
-        <TouchableOpacity key={index} style={styles.item}>
+        <TouchableOpacity 
+          key={index} 
+          style={styles.item} 
+          onPress={() => navigation.navigate("setting", { dataField: item })}
+        >
           <FontAwesome5 name={item.icon} size={20} color="#888" style={styles.icon} />
           <View style={styles.textContainer}>
             <Text style={styles.label}>{item.label}</Text>

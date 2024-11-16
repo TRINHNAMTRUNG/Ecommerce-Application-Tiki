@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faFaceSmileWink as faFaceSmileWinkReg } from '@fortawesome/free-regular-svg-icons';
 import { faFaceSmileWink as faFaceSmileWinkSol } from '@fortawesome/free-solid-svg-icons';
 import { faHouseCrack, faHouse, faList, faListCheck, faEnvelope, faEnvelopeOpenText } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons';  // Thêm icon mới
 
 import { StyleSheet, Text, TouchableNativeFeedback, TouchableOpacity, View } from "react-native";
 
@@ -11,6 +13,7 @@ import HomeStackScreen from "./homeStackScreen";
 import HomeDetail from "../pages/Home/homeDetail";
 import UserStackScreen from "./userStackScreen";
 import CategoryStackScreen from "./categoryStackScreen";
+import CartStackScreen from "./cartStackScreen";
 
 const MainTabNavigator = () => {
     const Tab = createBottomTabNavigator();
@@ -28,8 +31,8 @@ const MainTabNavigator = () => {
                 icon = focused ? faHouseCrack : faHouse;
             } else if (route.name === 'ActivityStack') {
                 icon = focused ? faListCheck : faList;
-            } else if (route.name === 'MessageStack') {
-                icon = focused ? faEnvelopeOpenText : faEnvelope;
+            } else if (route.name === 'CartStack') {
+                icon = focused ? faShoppingCart : faCartPlus;
             } else if (route.name === 'UserStack') {
                 icon = focused ? faFaceSmileWinkSol : faFaceSmileWinkReg;
             }
@@ -72,13 +75,13 @@ const MainTabNavigator = () => {
                 }}
             />
             <Tab.Screen
-                name="MessageStack"
-                component={HomeDetail}
+                name="CartStack"
+                component={CartStackScreen}
                 options={{
-                    tabBarBadge: 3,
+                  
                     tabBarLabel: ({ focused }) => (
                         <Text style={focused ? styleTab.labelFocus : styleTab.labelUnFocus}>
-                            Tin mới
+                            Giỏ hàng
                         </Text>
                     ),
                 }}
@@ -94,6 +97,8 @@ const MainTabNavigator = () => {
                     ),
                 }}
             />
+
+           
         </Tab.Navigator>
     );
 }

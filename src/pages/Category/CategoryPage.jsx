@@ -1,6 +1,5 @@
-// CategoryPage.js
-import React from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import React, { memo } from "react";
+import { View, StyleSheet, FlatList } from "react-native";
 import Sidebar from "../../components/Category/sidebar";
 import CategoryGrid from "../../components/Category/categoryGrid";
 import Header from "../../components/Category/header";
@@ -13,19 +12,23 @@ const CategoryPage = () => {
       <Header />
       <OfferComponent />
 
-
       <View style={styles.mainContentWrapper}>
         <View style={styles.mainContentWrapper2}> 
-            <ScrollView style={[styles.sidebarWrapper, { flex: 1 }]}>
-            <Sidebar />
-            </ScrollView>
+            <FlatList
+              style={[styles.sidebarWrapper, { flex: 1 }]}
+              data={[1]} // Chỉ cần một mục để render Sidebar
+              renderItem={() => <Sidebar />}
+              keyExtractor={() => "sidebar"}
+            />
         </View>
 
-        <ScrollView style={[styles.categoryGridWrapper, { flex: 3 }]}>
-            <CategoryGrid />
-        </ScrollView>
-    </View>
-
+        <FlatList
+          style={[styles.categoryGridWrapper, { flex: 3 }]}
+          data={[1]} // Chỉ cần một mục để render CategoryGrid
+          renderItem={() => <CategoryGrid />}
+          keyExtractor={() => "categoryGrid"}
+        />
+      </View>
     </View>
   );
 };
@@ -36,20 +39,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5f5f5",
   },
   mainContentWrapper: {
-    flexDirection: "row",  // Đặt các phần tử ngang hàng
+    flexDirection: "row", // Đặt các phần tử ngang hàng
     flex: 1,
     padding: 4,
   },
   sidebarWrapper: {
-    flex: 1,  // Sidebar chiếm 1 phần không gian
+    flex: 1, // Sidebar chiếm 1 phần không gian
     backgroundColor: "#e0f7fa", // Màu nền riêng cho sidebar
     marginRight: 6, // Khoảng cách giữa Sidebar và CategoryGrid
- 
   },
   categoryGridWrapper: {
-    flex: 3,  // CategoryGrid chiếm 3 phần không gian
-    
+    flex: 3, // CategoryGrid chiếm 3 phần không gian
   },
 });
 
-export default CategoryPage;
+export default memo(CategoryPage);

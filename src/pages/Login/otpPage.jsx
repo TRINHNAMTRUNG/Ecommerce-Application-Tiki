@@ -60,7 +60,7 @@ const OtpPage = ({ navigation, route }) => {
             })
         const { error } = schemaOtp.validate(codeString);
         if (error) {
-            openModal(error.details[0].messages, "error");
+            openModal(error.details[0].message, "error");
         } else {
             const result = await verifyOtp({ pinId: stateParams.pinId, pin: codeString });
             if (result.success) {

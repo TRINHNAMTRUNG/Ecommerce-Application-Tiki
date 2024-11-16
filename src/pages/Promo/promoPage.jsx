@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 
 import PromoHeader from '../../components/Promo/promoHeader';
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default PromoPage;
+export default memo(PromoPage);

@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import EditInputScreen from '../../components/Information/editInfor';
+import { memo } from 'react';
 
-const EditInforPage = () => {
+const EditInforPage = ({navigation, route}) => {
     return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <EditInputScreen />
-    
-    </ScrollView>
+    <View contentContainerStyle={styles.container}>
+      <EditInputScreen route = {route} navigation = {navigation}/>
+    </View>
     );
 };
 
@@ -15,4 +15,4 @@ const styles = StyleSheet.create({
   
 });
 
-export default EditInforPage;
+export default memo(EditInforPage);

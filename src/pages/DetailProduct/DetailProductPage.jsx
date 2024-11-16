@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { View, ScrollView, StyleSheet, Keyboard, TouchableWithoutFeedback } from "react-native";
 import Nav from "../../components/DetailProduct/navbar";
 import InforProduct from "../../components/DetailProduct/inforProduct";
@@ -70,4 +70,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DetailProductPage;
+export default memo(DetailProductPage);

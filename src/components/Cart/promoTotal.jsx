@@ -3,7 +3,21 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTags, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
-const PromoComponentTotal = ({ subtotal, quantity }) => {
+// Component PromoComponent để điều hướng tới PromoPage
+const PromoComponent = ({ navigation }) => {
+
+    return (
+        <TouchableOpacity onPress={()=> navigation.navigate("promoPage")}>  
+            <View style={styles.promo}>
+                <Text style={styles.promoText}>Chọn hoặc nhập mã</Text>
+                <FontAwesomeIcon icon={faAngleRight} size={20} color="#666666" style={styles.icon} />
+            </View>
+        </TouchableOpacity>
+    );
+};
+
+// Component PromoComponentTotal sử dụng PromoComponent
+const PromoComponentTotal = ({ subtotal, quantity, navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -11,12 +25,7 @@ const PromoComponentTotal = ({ subtotal, quantity }) => {
                     <FontAwesomeIcon icon={faTags} color="#1a73e8" style={styles.icon} />
                     <Text>Tiki khuyến mãi</Text>
                 </View>
-                <View style={styles.promo}>
-                    <Text style={styles.promoText}>
-                        Chọn hoặc nhập mã 
-                    </Text>
-                    <FontAwesomeIcon icon={faAngleRight} size={20} color="#666666" style={styles.icon} />
-                </View>
+                <PromoComponent navigation={navigation} /> 
             </View>
             <View style={styles.content}>
                 <Text>Mua thêm để freeship 70k cho đơn từ 100k</Text>
@@ -37,7 +46,7 @@ const PromoComponentTotal = ({ subtotal, quantity }) => {
 };
 
 const calculateSavings = (subtotal) => {
-    return subtotal < 100000 ? 58460 : 0; // trả về số tiền tiết kiệm thực tế
+    return subtotal < 100000 ? 0 : 0; // trả về số tiền tiết kiệm thực tế
 };
 
 const formatCurrency = (value) => {
@@ -57,8 +66,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 4,
         elevation: 2,
-     
-        
     },
     header: {
         flexDirection: 'row',
@@ -76,7 +83,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
     },
-
     promoText: {
         color: 'grey',
         fontSize: 12,

@@ -1,77 +1,74 @@
-// Sidebar.js
-import React from "react";
-import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
+import React, { useState } from "react";
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-const Sidebar = () => (
-  <SafeAreaProvider>
-    <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView style={styles.sidebar}>
-        <View style={styles.sidebarItem}>
-          <Image
-            style={styles.icon}
-            source={{
-              uri: "https://storage.googleapis.com/a1aa/image/7dq4eq79ilzQOaFImuKOPAMa5gpMI8rRTaRyno0TBFnujj4JA.jpg",
-            }}
-          />
-          <Text style={styles.text}>Gợi ý cho bạn</Text>
-        </View>
-        <View style={styles.sidebarItem}>
-          <Image
-            style={styles.icon}
-            source={{
-              uri: "https://storage.googleapis.com/a1aa/image/sxM8E1OLOiLLF5ZZaos1up1eEpRxQ1mPXrBekqdLc1SRHHxTA.jpg",
-            }}
-          />
-          <Text style={styles.text}>Nhà Sách Tiki</Text>
-        </View>
-        <View style={styles.sidebarItem}>
-          <Image
-            style={styles.icon}
-            source={{
-              uri: "https://storage.googleapis.com/a1aa/image/eE3K1XTVfVlqd0zWgunaPb6MzeQ4opW656tSqoUupxd3OOinA.jpg",
-            }}
-          />
-          <Text style={styles.text}>Nhà Cửa - Đời Sống</Text>
-        </View>
-        <View style={styles.sidebarItem}>
-          <Image
-            style={styles.icon}
-            source={{
-              uri: "https://storage.googleapis.com/a1aa/image/MJXE9EFM4l4UNN2xLSP3UAcWDkvYJzUlO1WfyvRQGLQtjj4JA.jpg",
-            }}
-          />
-          <Text style={styles.text}>Điện Thoại - Máy Tính</Text>
-        </View>
+const Sidebar = () => {
+  // State để theo dõi mục đang được chọn
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
+  // Dữ liệu danh mục
+  const categories = [
+    { name: "Gợi ý cho bạn", image: "https://storage.googleapis.com/a1aa/image/7dq4eq79ilzQOaFImuKOPAMa5gpMI8rRTaRyno0TBFnujj4JA.jpg" },
+    { name: "Nhà Sách Tiki", image: "https://storage.googleapis.com/a1aa/image/sxM8E1OLOiLLF5ZZaos1up1eEpRxQ1mPXrBekqdLc1SRHHxTA.jpg" },
+    { name: "Nhà Cửa - Đời Sống", image: "https://storage.googleapis.com/a1aa/image/eE3K1XTVfVlqd0zWgunaPb6MzeQ4opW656tSqoUupxd3OOinA.jpg" },
+    { name: "Điện Thoại - Máy Tính", image: "https://storage.googleapis.com/a1aa/image/MJXE9EFM4l4UNN2xLSP3UAcWDkvYJzUlO1WfyvRQGLQtjj4JA.jpg" },
+    
+  ];
 
+  // Xử lý khi người dùng chọn danh mục
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+  };
 
-      </ScrollView>
-    </SafeAreaView>
-  </SafeAreaProvider>
-);
+  return (
+    <SafeAreaProvider>
+      <SafeAreaView style={{ flex: 1 }}>
+        <ScrollView style={styles.sidebar}>
+          {categories.map((category, index) => (
+            <TouchableOpacity
+              key={index}
+              style={[
+                styles.sidebarItem,
+                selectedCategory === category.name && styles.selectedItem
+              ]}
+              onPress={() => handleCategorySelect(category.name)}
+            >
+              <Image
+                style={styles.icon}
+                source={{ uri: category.image }}
+              />
+              <Text style={styles.text}>{category.name}</Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
+  );
+};
 
 const styles = StyleSheet.create({
   sidebar: {
     flex: 1,
-    backgroundColor: "#e7f3ff", 
-    paddingVertical: 5, 
+    paddingVertical: 5,
   },
   sidebarItem: {
     alignItems: "center",
-    paddingVertical: 20, 
+    paddingVertical: 20,
     marginBottom: 10,
     flexDirection: "column",
     borderBottomWidth: 0.5,
-    borderBottomColor: "#ccc", 
+    borderBottomColor: "#ccc",
+  },
+  selectedItem: {
+    backgroundColor: "#ffffff", // Màu nền khi mục được chọn
   },
   icon: {
-    width: 60,  // Giảm kích thước icon
-    height:60, // Giảm kích thước icon
-    borderRadius: 8, // Bo góc cho icon
+    width: 60,
+    height: 60,
+    borderRadius: 8,
   },
   text: {
-    fontSize: 12, 
+    fontSize: 12,
     marginTop: 10,
     textAlign: "center",
     color: "#333",

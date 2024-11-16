@@ -90,4 +90,4 @@ const stylesHomePage = StyleSheet.create({
     }
 });
 
-export default HomeDetail;
+export default memo(HomeDetail);

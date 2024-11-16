@@ -50,8 +50,8 @@ const Login = ({ navigation, route }) => {
             if (result.success === true) {
                 dispatch(actionLogin(result.data));
             } else {
-                // openModal(result.errors[0], "error");
-                openModal("Đăng ký thành công!", "success");
+                openModal(result.errors[0], "error");
+                // openModal("Đăng ký thành công!", "success");
             }
         } catch (error) {
             error.errors.forEach((detail) => {

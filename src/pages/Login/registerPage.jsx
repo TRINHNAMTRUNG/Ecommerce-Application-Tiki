@@ -107,12 +107,8 @@ const Register = ({ navigation }) => {
     }
 
     const handleRegister = async () => {
-<<<<<<< HEAD
-        // navigation.navigate("OtpPage");
-        validate.current = 1; // Đặt validate.current = 1 ngay khi nhấn "Tiếp tục"
-=======
+
         validate.current = 1;
->>>>>>> master
         const dataRegister = {
             customerName,
             email,
@@ -120,19 +116,7 @@ const Register = ({ navigation }) => {
             password,
             role: "customer"
         }
-<<<<<<< HEAD
-        try {
-            const result = await registerSvc(dataRegister);
-            if (result.success === true) {
-                openModal("Đăng ký thành công!", "success");
-                navigation.navigate("Login", { dataLogin: { phoneNumber, password } });
-            } else {
-                console.log(result)
-                openModal(result.errors[0], "error");
-            }
-        } catch (error) {
-            error.errors.forEach((detail) => {
-=======
+
         const { error } = schemaAccountJoi.validate(dataRegister, { abortEarly: false });
         if (!error && passConfirm && passConfirm === password) {
             try {
@@ -148,7 +132,6 @@ const Register = ({ navigation }) => {
         } else if (error) {
             console.log("???? error ", error);
             error.details.forEach((detail) => {
->>>>>>> master
                 if (detail.context.key === "customerName") {
                     setValidCustomerName(detail.message);
                 }
@@ -162,11 +145,7 @@ const Register = ({ navigation }) => {
                     setValidPassword(detail.message);
                 }
             });
-<<<<<<< HEAD
-            if (!passConfirm) {
-                setValidPassConfirm("Mật khẩu không được trống");
-            }
-=======
+
         } else {
             if (!passConfirm) {
                 setValidPassConfirm("Mật khẩu không được trống");
@@ -174,7 +153,6 @@ const Register = ({ navigation }) => {
             if (passConfirm && passConfirm !== password) {
                 setValidPassConfirm("Mật khẩu không khớp");
             }
->>>>>>> master
         }
     }
     const validateField = (value, schema, setError) => {

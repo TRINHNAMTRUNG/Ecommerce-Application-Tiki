@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT } from "../Action/authAction";
+import { LOGIN, LOGOUT, UPDATE_USER } from "../Action/authAction";
 
 const initialState = {
     user: null,
@@ -20,6 +20,11 @@ const authReducer = (state = initialState, action) => {
                 user: null,
                 isAuthenticated: false
             };
+        case UPDATE_USER:
+            return {
+                ...state,
+                user: {...user, ...action.payload }
+            }
         default:
             return state;
     }
