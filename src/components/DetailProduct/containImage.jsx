@@ -3,18 +3,18 @@ import { View, Image, StyleSheet, Dimensions, TouchableOpacity, FlatList, Scroll
 
 const { width } = Dimensions.get('window');
 
-const images = [
-  require('../../assets/listAdv/adv01.png'),
-  require('../../assets/listAdv/adv02.png'),
-  require('../../assets/listAdv/adv03.png'),
-  require('../../assets/listAdv/adv04.png'),
-  require('../../assets/listAdv/adv05.png'),
-];
+// const images = [
+//   require('../../assets/listAdv/adv01.png'),
+//   require('../../assets/listAdv/adv02.png'),
+//   require('../../assets/listAdv/adv03.png'),
+//   require('../../assets/listAdv/adv04.png'),
+//   require('../../assets/listAdv/adv05.png'),
+// ];
 
-const StrainerImage = () => {
+const StrainerImage = ({ product }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollViewRef = useRef(null);
-
+  const images = product.images;
   // Khi người dùng nhấn vào thumbnail
   const handleThumbnailPress = (index) => {
     setActiveIndex(index);
@@ -43,7 +43,7 @@ const StrainerImage = () => {
       >
         {images.map((image, index) => (
           <View key={index} style={styles.slide}>
-            <Image source={image} style={styles.image} />
+            <Image source={{ uri: image }} style={styles.image} />
           </View>
         ))}
       </ScrollView>
@@ -51,7 +51,7 @@ const StrainerImage = () => {
         data={images}
         renderItem={({ item, index }) => (
           <TouchableOpacity onPress={() => handleThumbnailPress(index)} style={styles.thumbnailContainer}>
-            <Image source={item} style={[styles.thumbnail, activeIndex === index && styles.activeThumbnail]} />
+            <Image source={{ uri: item }} style={[styles.thumbnail, activeIndex === index && styles.activeThumbnail]} />
           </TouchableOpacity>
         )}
         horizontal

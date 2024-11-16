@@ -12,7 +12,7 @@ const formatCurrency = (amount) => {
 const CardProduct = ({ product }) => {
     const navigation = useNavigation();
     return (
-        <Pressable style={styleCardProduct.containerCard} onPress={() => { navigation.navigate("productDetail") }}>
+        <Pressable style={styleCardProduct.containerCard} onPress={() => { navigation.navigate("productDetail", { product }) }}>
             <View style={styleCardProduct.frameImage}>
                 <Image source={{ uri: product.images[0] }} style={styleCardProduct.imageProd} />
             </View>
