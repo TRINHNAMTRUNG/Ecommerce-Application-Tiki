@@ -3,7 +3,7 @@ import { store } from "../store/store";
 import { showLoading, hidenLoading } from "../store/Action/loadingAction";
 const instance = axios.create({
 
-    baseURL: 'https://2a4a-1-53-82-87.ngrok-free.app/v1/api/'
+    baseURL: 'https://8ca5-1-53-82-111.ngrok-free.app/v1/api/'
 
 });
 // Add a request interceptor

@@ -7,7 +7,7 @@ const PriceDisplay = ({ subtotal, discount }) => {
     return (
         <View style={styles.container}>
             <View style={styles.row}>
-                <Text>Tạm tính</Text>
+                <Text>Tổng tiền hàng</Text>
                 <Text>{subtotal}₫</Text>
             </View>
             <View style={styles.rowDeal}>
@@ -15,8 +15,12 @@ const PriceDisplay = ({ subtotal, discount }) => {
                 <Text style={styles.discount}>-{Math.abs(discount)}₫</Text>
             </View>
             <View style={styles.row}>
-                <Text style={styles.bold}>Tổng tiền</Text>
+                <Text style={styles.bold}>Tổng tiền thanh toán</Text>
                 <Text style={styles.bold}>{total}₫</Text>
+            </View>
+            <View style={styles.row}>
+                <Text >Tiết kiệm</Text>
+                <Text style={styles.discount}>{total}₫</Text>
             </View>
         </View>
     );
@@ -29,7 +33,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         padding: 12,
         width: '100%',
-        backgroundColor: '#E8E8E8'
+        borderWidth: 1,
     },
     row: {
         flexDirection: 'row',

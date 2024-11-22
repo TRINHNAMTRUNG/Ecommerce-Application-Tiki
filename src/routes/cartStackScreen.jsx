@@ -10,8 +10,6 @@ const CartStackScreen = () => {
         <CartStack.Navigator initialRouteName="cartPage" screenOptions={{ headerShown: false }}>
             <CartStack.Screen name="cartPage" component={CartPage} />
             <CartStack.Screen name="promoPage" component={PromoPage } />
-         
-     
         </CartStack.Navigator>
     )
 }

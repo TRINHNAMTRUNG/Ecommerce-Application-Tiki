@@ -25,7 +25,7 @@ const DetailProductPage = ({ navigation, route }) => {
     // Show ButtonContainer only when it's not in the viewport
     setIsButtonVisible(!isCloseToBottom);
   };
-
+  console.log("Hien thi lan first");
   return (
     <View style={styles.container}>
       <Nav isSearchVisible={true} />
@@ -38,14 +38,14 @@ const DetailProductPage = ({ navigation, route }) => {
         <InforProduct product={product} />
         <InfoSection />
         <ShippingInfo />
-        <ButtonContainer product={product} />
+        <ButtonContainer product={product} navigation={navigation}/>
         <ShoppingAssurance />
         <DetailInfo product={product} />
         <CustomerReview product={product} />
       </ScrollView>
       {/* Always show ButtonContainer at the bottom */}
       <View style={[styles.buttonContainer, { display: isButtonVisible ? 'none' : 'flex' }]}>
-        <ButtonContainer />
+        <ButtonContainer product={product} navigation={navigation}/>
       </View>
     </View>
   );
