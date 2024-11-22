@@ -2,9 +2,7 @@ import axios from "axios";
 import { store } from "../store/store";
 import { showLoading, hidenLoading } from "../store/Action/loadingAction";
 const instance = axios.create({
-
     baseURL: 'https://0aec-1-53-82-111.ngrok-free.app/v1/api/'
-
 });
 // Add a request interceptor
 instance.interceptors.request.use(
