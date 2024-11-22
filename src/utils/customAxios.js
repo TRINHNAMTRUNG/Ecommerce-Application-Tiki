@@ -3,17 +3,19 @@ import { store } from "../store/store";
 import { showLoading, hidenLoading } from "../store/Action/loadingAction";
 const instance = axios.create({
 
-    baseURL: 'https://2a4a-1-53-82-87.ngrok-free.app/v1/api/'
+    baseURL: 'https://0aec-1-53-82-111.ngrok-free.app/v1/api/'
 
 });
 // Add a request interceptor
 instance.interceptors.request.use(
-    function(config) {
-        store.dispatch(showLoading());
+    function (config) {
+        if (config.showLoading) {
+            store.dispatch(showLoading());
+        }
         // Do something before request is sent
         return config;
     },
-    function(error) {
+    function (error) {
 
         // Do something with request error 
         return Promise.reject(error);
@@ -21,13 +23,13 @@ instance.interceptors.request.use(
 );
 
 // Add a response interceptor
-instance.interceptors.response.use(function(response) {
+instance.interceptors.response.use(function (response) {
     store.dispatch(hidenLoading());
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     // console.log("check success response: ", response.data);
     return response && response.data ? response.data : response;
-}, function(error) {
+}, function (error) {
     store.dispatch(hidenLoading());
 
     // Any status codes that falls outside the range of 2xx cause this function to trigger

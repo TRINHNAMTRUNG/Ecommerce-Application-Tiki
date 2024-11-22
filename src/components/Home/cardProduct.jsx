@@ -2,7 +2,8 @@ import { Image, Pressable, StyleSheet } from "react-native";
 import { View, Text } from "react-native";
 import image from "../../assets/thumb/backgr_image.png"
 import { useNavigation } from '@react-navigation/native';
-import { AirbnbRating } from "react-native-ratings";
+// import { AirbnbRating } from "react-native-ratings";
+import { StarRatingDisplay } from 'react-native-star-rating-widget';
 import { memo } from "react";
 
 const formatCurrency = (amount) => {
@@ -19,12 +20,12 @@ const CardProduct = ({ product }) => {
             <View style={styleCardProduct.frameContent}>
                 <Text style={styleCardProduct.frameTitle} numberOfLines={2} ellipsizeMode='tail'>{product.name}</Text>
                 <View style={styleCardProduct.frameRating}>
-                    <AirbnbRating
-                        count={5}
-                        size={14}
-                        defaultRating={product.ratingAverage}
-                        showRating={false}
-                        starContainerStyle={{ alignSelf: "flex-start" }}
+                    <StarRatingDisplay
+                        maxStars={5}
+                        starSize={14}
+                        enableHalfStar={true}
+                        rating={product.ratingAverage}
+                        style={{ alignSelf: "flex-start" }}
                     />
                 </View>
                 <Text style={styleCardProduct.textPrice}>{formatCurrency(product.price * 0.45)} VND</Text>
@@ -43,8 +44,7 @@ const CardProduct = ({ product }) => {
 
 const styleCardProduct = StyleSheet.create({
     containerCard: {
-        width: 150,
-        height: "100%",
+        width: 160,
         minHeight: 300,
         marginRight: 10,
         borderRadius: 10,
@@ -52,6 +52,7 @@ const styleCardProduct = StyleSheet.create({
         backgroundColor: "white",
         borderColor: "#f2f2f2",
         borderWidth: 1.5,
+        marginBottom: 16
     },
     frameImage: {
         height: 120,
