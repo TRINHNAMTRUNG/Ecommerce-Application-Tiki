@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Alert } from 'react-native';
 
-const PaymentMethods = ({ navigation }) => {
+const PaymentMethods = () => {
   const [selectedMethod, setSelectedMethod] = useState(null);
 
   const methods = [
     { id: 1, name: 'Tiền mặt khi nhận hàng', icon: '💵' },
-    { id: 2, name: 'Momo', icon: '📱' },
+    { id: 2, name: 'Momo', icon: '📱', category: 'Ví điện tử' },
     { id: 3, name: 'VNPAY', icon: '🏦' },
     { id: 4, name: 'Thẻ ATM (Internet Banking)', icon: '💳' },
   ];
@@ -18,14 +18,19 @@ const PaymentMethods = ({ navigation }) => {
   const handleConfirm = () => {
     const selected = methods.find((method) => method.id === selectedMethod);
     if (selected) {
+      // Hiển thị Alert xác nhận
       Alert.alert(
         'Xác nhận thanh toán',
         `Bạn có chắc muốn thanh toán bằng phương thức "${selected.name}" không?`,
         [
-          { text: 'Hủy', style: 'cancel' },
+          {
+            text: 'Hủy',
+            style: 'cancel',
+          },
           {
             text: 'Xác nhận',
             onPress: () => {
+              // Thông báo thanh toán thành công
               Alert.alert('Thông báo', `Bạn đã thanh toán thành công bằng phương thức "${selected.name}"!`);
             },
           },
@@ -52,15 +57,7 @@ const PaymentMethods = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.backButton}
-        onPress={() => navigation.goBack()} 
-      >
-        <Text style={styles.backButtonText}>◀ Quay lại</Text>
-      </TouchableOpacity>
-
       <Text style={styles.title}>Chọn Phương Thức Thanh Toán</Text>
-
       <ScrollView>
         {methods.map(renderMethod)}
       </ScrollView>
@@ -86,23 +83,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
     marginTop: 30,
   },
-  backButton: {
-    marginBottom: 16,
-    padding: 10,
-    alignSelf: 'flex-start',
-
-    borderRadius: 8,
-  },
-  backButtonText: {
-    color: 'black',
-    fontSize: 16,
-  },
   title: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 16,
     color: '#333',
-    textAlign: 'center',
   },
   method: {
     flexDirection: 'row',

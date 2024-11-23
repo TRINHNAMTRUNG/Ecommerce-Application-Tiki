@@ -3,7 +3,7 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-const ChooseRoleScreen = () => {
+const ChooseRoleScreen = ({navigation}) => {
   // State to track the selected role
   const [selectedRole, setSelectedRole] = useState(null);
 
@@ -52,7 +52,7 @@ const ChooseRoleScreen = () => {
           <Text style={styles.roleText}>Người bán hàng</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.getStarted} onPress={() => { /* Xử lý sự kiện */ }}>
+      <TouchableOpacity style={styles.getStarted} onPress={() => {navigation.navigate(selectedRole === "customer" ? "Login" : "SellerLogin")}}>
         <Text style={styles.getStartedText}>Bắt đầu ngay</Text>
         <Icon name="arrow-right" style={styles.getStartedIcon} size={20} color="white" />
       </TouchableOpacity>
