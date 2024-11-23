@@ -1,15 +1,11 @@
-
-
-
 import axios from "../utils/customAxios"
 
 
-const getListTopDeal = async (page, isShowLoading) => {
+const getListTopDeal = async(page, isShowLoading) => {
     const limit = 8;
     try {
         const response = await axios.get(
-            `product/top-deal?limit=${limit}&page=${page}`,
-            {
+            `product/top-deal?limit=${limit}&page=${page}`, {
                 headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json"
@@ -23,12 +19,11 @@ const getListTopDeal = async (page, isShowLoading) => {
         throw error;
     }
 };
-const getListTopDealNew = async (page, isShowLoading) => {
+const getListTopDealNew = async(page, isShowLoading) => {
     const limit = 8;
     try {
         const response = await axios.get(
-            `product/top-deal-new?limit=${limit}&page=${page}`,
-            {
+            `product/top-deal-new?limit=${limit}&page=${page}`, {
                 headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json"
@@ -42,12 +37,11 @@ const getListTopDealNew = async (page, isShowLoading) => {
         throw error;
     }
 };
-const getListTopDealBook = async (page, isShowLoading) => {
+const getListTopDealBook = async(page, isShowLoading) => {
     const limit = 8;
     try {
         const response = await axios.get(
-            `product/top-deal-book?limit=${limit}&page=${page}`,
-            {
+            `product/top-deal-book?limit=${limit}&page=${page}`, {
                 headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json"
@@ -61,12 +55,11 @@ const getListTopDealBook = async (page, isShowLoading) => {
         throw error;
     }
 };
-const getSearchProduct = async (name, page, isShowLoading) => {
+const getSearchProduct = async(name, page, isShowLoading) => {
     const limit = 8;
     try {
         const response = await axios.get(
-            `product/search?name=${name}&limit=${limit}&page=${page}`,
-            {
+            `product/search?name=${name}&limit=${limit}&page=${page}`, {
                 headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json"

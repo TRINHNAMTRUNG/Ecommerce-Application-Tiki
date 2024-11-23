@@ -1,4 +1,3 @@
-
 import axios from "../utils/customAxios";
 import {
     schemaAccountJoi,
@@ -7,7 +6,7 @@ import {
 } from "../models/authSchema";
 import Joi from "joi";
 
-const loginSvc = async (dataLogin) => {
+const loginSvc = async(dataLogin) => {
     const { error } = schemaVertifyJoi.validate(dataLogin, { abortEarly: false });
     if (error) {
         throw {
@@ -23,7 +22,7 @@ const loginSvc = async (dataLogin) => {
     }
 }
 
-const registerSvc = async (dataRegister) => {
+const registerSvc = async(dataRegister) => {
     const { error } = schemaAccountJoi.validate(dataRegister, { abortEarly: false });
     if (error) {
         throw {
@@ -39,7 +38,7 @@ const registerSvc = async (dataRegister) => {
         return error;
     }
 }
-const sendOtp = async (phoneNumber) => {
+const sendOtp = async(phoneNumber) => {
     const schemaPhone = Joi.string()
         .trim()
         .pattern(/^(84|0[3|5|7|8|9])[0-9]{8}$/)
@@ -69,7 +68,7 @@ const sendOtp = async (phoneNumber) => {
     }
 }
 
-const verifyOtp = async (dataPin) => {
+const verifyOtp = async(dataPin) => {
     const schemaOtp = Joi.string()
         .trim()
         .length(6)
@@ -93,7 +92,7 @@ const verifyOtp = async (dataPin) => {
     }
 }
 
-const changePassworSvc = async (dataChange) => {
+const changePassworSvc = async(dataChange) => {
     const { error } = schemaChangePassJoi.validate(dataChange);
     if (error) {
         throw {
