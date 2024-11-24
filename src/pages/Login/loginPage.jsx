@@ -48,7 +48,8 @@ const Login = ({ navigation, route }) => {
         try {
             const result = await loginSvc(userInfo);
             if (result.success === true) {
-                dispatch(actionLogin({...result.data, role: "customer"}));
+                dispatch(actionLogin({ ...result.data, role: "customer" }));
+
             } else {
                 openModal(result.errors[0], "error");
                 // openModal("Đăng ký thành công!", "success");

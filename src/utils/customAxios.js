@@ -13,6 +13,7 @@ instance.interceptors.request.use(
         // Do something before request is sent
         return config;
     },
+
     function(error) {
 
         // Do something with request error 

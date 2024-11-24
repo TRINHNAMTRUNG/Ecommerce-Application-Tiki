@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-
+const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('vi-VN').format(amount);
+};
 const PriceDisplay = ({ subtotal, discount, navigation }) => {
     const total = subtotal + discount; // Tính tổng tiền
 
@@ -8,7 +10,7 @@ const PriceDisplay = ({ subtotal, discount, navigation }) => {
         <View style={styles.container}>
             <View style={styles.row}>
                 <Text>Tổng tiền hàng</Text>
-                <Text>{subtotal}₫</Text>
+                <Text>{formatCurrency(subtotal)}₫</Text>
             </View>
             <View style={styles.rowDeal}>
                 <Text>Giảm giá từ Deal</Text>
@@ -16,11 +18,11 @@ const PriceDisplay = ({ subtotal, discount, navigation }) => {
             </View>
             <View style={styles.row}>
                 <Text style={styles.bold}>Tổng tiền thanh toán</Text>
-                <Text style={styles.bold}>{total}₫</Text>
+                <Text style={styles.bold}>{formatCurrency(total)}₫</Text>
             </View>
             <View style={styles.row}>
                 <Text >Tiết kiệm</Text>
-                <Text style={styles.discount}>{total}₫</Text>
+                <Text style={styles.discount}>{Math.abs(discount)}₫</Text>
             </View>
         </View>
     );

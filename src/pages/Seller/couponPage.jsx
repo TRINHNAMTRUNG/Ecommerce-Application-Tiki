@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, ScrollView, StyleSheet, Switch, Image } from 'react-native';
+import { View, Text, TextInput, Button, ScrollView, StyleSheet, Switch, Image, Alert } from 'react-native';
 import axios from 'axios';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -11,23 +11,11 @@ const CreatePromoCode = ({navigation}) => {
     applicableProducts: [],
     usageLimit: '',
     minOrderValue: '',
-    active: true, // Trạng thái khuyến mãi
+    active: true, 
   });
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);  
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get('/api/products');
-        setProducts(response.data);
-      } catch (error) {
-        alert('Không thể tải danh sách sản phẩm!');
-      }
-    };
-    fetchProducts();
-  }, []);
 
   const handleFieldChange = (field, value) => {
     setFormData((prev) => ({
@@ -46,9 +34,16 @@ const CreatePromoCode = ({navigation}) => {
   };
 
   const handleSubmit = async () => {
+    // Kiểm tra dữ liệu nhập vào
+    if (!formData.code || !formData.discountValue || !formData.usageLimit || !formData.minOrderValue) {
+      alert('Vui lòng điền đầy đủ thông tin!');
+      return;
+    }
+
     setLoading(true);
 
     try {
+   
       const formattedData = {
         ...formData,
         discountValue: parseFloat(formData.discountValue),
@@ -57,9 +52,16 @@ const CreatePromoCode = ({navigation}) => {
         endDate: formData.endDate.toISOString(),
       };
 
+      console.log('Dữ liệu gửi đi:', formattedData);
+
       const response = await axios.post('/api/promotions', formattedData);
       if (response.status === 200) {
-        alert('Mã khuyến mãi đã được tạo thành công!');
+   
+        Alert.alert('Thông báo', 'Mã khuyến mãi đã được tạo thành công!', [
+          { text: 'OK', onPress: () => navigation.goBack() },
+        ]);
+        
+       
         setFormData({
           code: '',
           discountValue: '',
@@ -71,7 +73,14 @@ const CreatePromoCode = ({navigation}) => {
         });
       }
     } catch (error) {
-      alert('Có lỗi xảy ra khi tạo mã khuyến mãi!');
+      // Xử lý lỗi khi API không thành công
+      if (error.response) {
+        console.log('Lỗi từ API:', error.response.data);
+        alert(`Lỗi: ${error.response.data.message || 'Không thể tạo mã khuyến mãi!'}`);
+      } else {
+        console.log('Lỗi kết nối:', error.message);
+        alert('Có lỗi xảy ra khi tạo mã khuyến mãi!');
+      }
     } finally {
       setLoading(false);
     }
@@ -86,7 +95,7 @@ const CreatePromoCode = ({navigation}) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* Logo */}
+
       <Image
         source={{ uri: 'https://salt.tikicdn.com/ts/SellerCenter/a8/77/22/70afa8081f795da2ed1a7efefc3f0579.png' }}
         style={styles.logo}

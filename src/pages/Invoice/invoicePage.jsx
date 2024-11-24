@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Alert } from 'react-native';
+import { Modal, View, Text, TouchableOpacity, ScrollView, StyleSheet, Button } from 'react-native';
+import { useModal } from '../../components/modelDialog';
 
-const PaymentMethods = () => {
+const PaymentMethods = ({ navigation }) => {
   const [selectedMethod, setSelectedMethod] = useState(null);
-
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const { openModal } = useModal();
   const methods = [
     { id: 1, name: 'Tiền mặt khi nhận hàng', icon: '💵' },
     { id: 2, name: 'Momo', icon: '📱', category: 'Ví điện tử' },
@@ -11,34 +13,12 @@ const PaymentMethods = () => {
     { id: 4, name: 'Thẻ ATM (Internet Banking)', icon: '💳' },
   ];
 
-  const handleSelect = (id) => {
-    setSelectedMethod(id);
+  const handleSelect = (method) => {
+    setSelectedMethod(method);
   };
 
   const handleConfirm = () => {
-    const selected = methods.find((method) => method.id === selectedMethod);
-    if (selected) {
-      // Hiển thị Alert xác nhận
-      Alert.alert(
-        'Xác nhận thanh toán',
-        `Bạn có chắc muốn thanh toán bằng phương thức "${selected.name}" không?`,
-        [
-          {
-            text: 'Hủy',
-            style: 'cancel',
-          },
-          {
-            text: 'Xác nhận',
-            onPress: () => {
-              // Thông báo thanh toán thành công
-              Alert.alert('Thông báo', `Bạn đã thanh toán thành công bằng phương thức "${selected.name}"!`);
-            },
-          },
-        ]
-      );
-    } else {
-      Alert.alert('Lỗi', 'Vui lòng chọn một phương thức thanh toán.');
-    }
+    setIsModalVisible(true);
   };
 
   const renderMethod = (method) => (
@@ -46,9 +26,9 @@ const PaymentMethods = () => {
       key={method.id}
       style={[
         styles.method,
-        selectedMethod === method.id && styles.selectedMethod,
+        selectedMethod?.id === method.id && styles.selectedMethod,
       ]}
-      onPress={() => handleSelect(method.id)}
+      onPress={() => handleSelect(method)}
     >
       <Text style={styles.icon}>{method.icon}</Text>
       <Text style={styles.methodText}>{method.name}</Text>
@@ -57,9 +37,43 @@ const PaymentMethods = () => {
 
   return (
     <View style={styles.container}>
+      <Modal
+        visible={isModalVisible}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => setIsModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Xác nhận thanh toán</Text>
+            <Text style={styles.modalTitle}>
+              {selectedMethod
+                ? `Bạn có chắc muốn thanh toán bằng phương thức "${selectedMethod.name}" không?`
+                : 'Vui lòng chọn phương thức thanh toán.'}
+            </Text>
+            <View style={styles.modalButtons}>
+              <Button
+                title="Hủy"
+                onPress={() => {
+                  setIsModalVisible(false);
+                }}
+              />
+              <Button
+                title="Đồng ý"
+                onPress={() => {
+                  setIsModalVisible(false);
+                  openModal('Thanh toán thành công!', 'success');
+                  navigation.goBack();
+                }}
+              />
+            </View>
+          </View>
+        </View>
+      </Modal>
+
       <Text style={styles.title}>Chọn Phương Thức Thanh Toán</Text>
       <ScrollView>
-        {methods.map(renderMethod)}
+        {methods.map((method) => renderMethod(method))}
       </ScrollView>
 
       <TouchableOpacity
@@ -130,6 +144,34 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    width: '80%',
+    padding: 20,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  modalTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 16,
   },
 });
 
