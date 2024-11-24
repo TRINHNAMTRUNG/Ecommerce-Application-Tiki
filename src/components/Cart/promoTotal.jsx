@@ -2,12 +2,13 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTags, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { useModal } from '../modelDialog';
 
 // Component PromoComponent để điều hướng tới PromoPage
 const PromoComponent = ({ navigation }) => {
 
     return (
-        <TouchableOpacity onPress={()=> navigation.navigate("promoPage")}>  
+        <TouchableOpacity onPress={() => navigation.navigate("promoPage")}>
             <View style={styles.promo}>
                 <Text style={styles.promoText}>Chọn hoặc nhập mã</Text>
                 <FontAwesomeIcon icon={faAngleRight} size={20} color="#666666" style={styles.icon} />
@@ -18,6 +19,7 @@ const PromoComponent = ({ navigation }) => {
 
 // Component PromoComponentTotal sử dụng PromoComponent
 const PromoComponentTotal = ({ subtotal, quantity, navigation }) => {
+    const { openModal } = useModal();
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -25,7 +27,7 @@ const PromoComponentTotal = ({ subtotal, quantity, navigation }) => {
                     <FontAwesomeIcon icon={faTags} color="#1a73e8" style={styles.icon} />
                     <Text>Tiki khuyến mãi</Text>
                 </View>
-                <PromoComponent navigation={navigation} /> 
+                <PromoComponent navigation={navigation} />
             </View>
             <View style={styles.content}>
                 <Text>Mua thêm để freeship 70k cho đơn từ 100k</Text>
@@ -33,12 +35,12 @@ const PromoComponentTotal = ({ subtotal, quantity, navigation }) => {
             <View style={styles.footer}>
                 <View>
                     <Text style={styles.total}>
-                        {formatCurrency(subtotal)} 
+                        {formatCurrency(subtotal)}
                     </Text>
                     <Text style={styles.savings}>Tiết kiệm {formatCurrency(calculateSavings(subtotal))}</Text>
                 </View>
-                <TouchableOpacity style={styles.buyButton}>
-                    <Text style={styles.buyButtonText}>Mua Hàng ({quantity})</Text>
+                <TouchableOpacity style={styles.buyButton} onPress={() => subtotal !== 0 ? navigation.navigate("paymentMethods") : openModal('Vui lòng chọn sản phẩm cần thanh toán!', 'error')}>
+                    <Text style={styles.buyButtonText}>Mua Hàng</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -60,7 +62,7 @@ const styles = StyleSheet.create({
         borderColor: '#e0e0e0',
         borderRadius: 2,
         padding: 16,
-        
+
         width: '100%',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },

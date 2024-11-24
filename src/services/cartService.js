@@ -1,7 +1,7 @@
 import Joi from "joi";
 import axios from "../utils/customAxios"; // Đảm bảo đường dẫn đúng
 
-const addProductToCart = async(data) => {
+const addProductToCart = async (data) => {
     // Schema Joi để validate dữ liệu trước khi gọi API
     const cartSchemaJoi = Joi.object({
         customer: Joi.string()
@@ -45,32 +45,43 @@ const addProductToCart = async(data) => {
     }
 };
 
-const getCartItems = async(req, res) => {
+const getCartItems = async (idCustomer) => {
     try {
         const response = await axios.get(
-            `cart/67379ec463c255a27f23adc8`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                }
+            `cart/${idCustomer}`, {
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
             }
+        }
         );
         return response;
     } catch (error) {
         console.error("Error fetching category data:", error);
-        return error;
+        throw error;
     }
 }
-
-const addItemToCartSvc = (dataItem) => {
+const removeProductFromCart = async (dataDelete) => {
     try {
-
+        console.log(dataDelete);
+        const response = await axios.delete(
+            `cart/${dataDelete.customer}/${dataDelete.product}`, {
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+        }
+        );
+        return response;
     } catch (error) {
-
+        console.error("Error remove product from cart:", error);
+        throw error;
     }
 }
+
 
 export {
     addProductToCart,
-    getCartItems
+    getCartItems,
+    removeProductFromCart
 };

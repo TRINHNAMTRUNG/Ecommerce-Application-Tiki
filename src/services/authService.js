@@ -33,6 +33,7 @@ const registerSvc = async (dataRegister) => {
     }
     try {
         const dataUser = await axios.post("/new/register", dataRegister);
+        await axios.post(`/cart/${dataUser.data._id}`);
         return dataUser;
     } catch (error) {
         console.log(error);

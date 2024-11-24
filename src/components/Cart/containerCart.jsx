@@ -9,13 +9,15 @@ import Address from './address';
 import ShoppingCart from './shoppingCart';
 
 
-const ContainerCart = ({ navigation, cartItems }) => {
+const ContainerCart = ({ navigation, cartItems, setTotalPrice }) => {
     const [isAllChecked, setIsAllChecked] = useState(false);
     const [isItemChecked, setIsItemChecked] = useState([false]);
     const [quantity, setQuantity] = useState([1]);
     const productPrice = [1];
     const [subtotal, setSubtotal] = useState(0);
-
+    useEffect(() => {
+        setTotalPrice(subtotal)
+    }, [subtotal]);
     const handleRemoveProduct = (index) => {
         Alert.alert(
             'Xác nhận',
@@ -80,7 +82,7 @@ const ContainerCart = ({ navigation, cartItems }) => {
                     </TouchableOpacity>
                 </View>
 
-                <ShoppingCart />
+                <ShoppingCart cartItems={cartItems} setSubtotal={setSubtotal} />
 
                 <PriceDisplay subtotal={subtotal} discount={0} />
             </ScrollView>

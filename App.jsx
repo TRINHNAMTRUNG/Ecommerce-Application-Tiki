@@ -26,10 +26,7 @@ export default function App() {
         </ModalProvider>
       </PersistGate>
     </Provider>
-
-
-    //  <ChooseRoleScreen/>
-
+    // <SignUpForm />
   );
 }
 

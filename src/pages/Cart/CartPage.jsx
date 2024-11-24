@@ -14,8 +14,11 @@ import { getCartItems } from "../../services/cartService";
 import { useSelector } from "react-redux";
 import PromoComponentTotal from "../../components/Cart/promoTotal"; // Import your PromoComponentTotal
 
-const CartPage = ({ navigation }) => {
-
+const CartPage = ({ navigation, route }) => {
+  const productSelect = {};
+  if (route.params && route.params.product) {
+    productSelect = route.params.product;
+  }
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const dataUser = useSelector((state) => state.auth.user);
@@ -26,10 +29,26 @@ const CartPage = ({ navigation }) => {
 
   const fetchCartItems = async () => {
     try {
-      const res = await getCartItems();
-      console.log("List cart                        ", res)
+      const res = await getCartItems(dataUser._id);
+      console.log("List cart                        ", res.data.listProduct)
       if (res.success && res.data) {
-        setCartItems(res.data.listProduct);
+        const groupedBySeller = Object.values(
+          res.data.listProduct.reduce((acc, item) => {
+            const sellerId = item.product.seller._id;
+            if (!acc[sellerId]) {
+              acc[sellerId] = {
+                sellerId: sellerId,
+                nameStore: item.product.seller.nameStore,
+                listProduct: [],
+                checked: false
+              };
+            }
+            acc[sellerId].listProduct.push({ ...item.product, itemsQty: item.itemsQty, checked: productSelect._id === item.product._id && productSelect ? true : false });
+            return acc;
+          }, {})
+        );
+        console.log("haaaaaaaaahaahahhhhhhhhhhhhh               ", groupedBySeller[0].listProduct[0]);
+        setCartItems(groupedBySeller);
         calculateTotal(res.data.listProduct);
       } else {
         setCartItems([]); // Clear the cart if no data is returned
@@ -71,9 +90,7 @@ const CartPage = ({ navigation }) => {
       <ScrollView style={styles.scrollContainer}>
         {cartItems.length > 0 ? (
           <>
-            <ContainerCart cartItems={cartItems} navigation={navigation} />
-
-
+            <ContainerCart cartItems={cartItems} navigation={navigation} setTotalPrice={setTotalPrice} />
           </>
         ) : (
           <View style={styles.emptyCartContainer}>
@@ -93,7 +110,6 @@ const CartPage = ({ navigation }) => {
         )}
       </ScrollView>
 
-      {/* Insert PromoComponentTotal */}
       <View style={styles.fixedPromoContainer}>
         <PromoComponentTotal
           subtotal={totalPrice}
