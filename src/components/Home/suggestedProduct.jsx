@@ -50,7 +50,8 @@ const styles = StyleSheet.create({
     containerListProduct: {
         width: "100%",
         padding: 16,
-        marginTop: 12,
+        borderTopWidth: 8,
+        borderColor: "#EEEEEE",
         backgroundColor: "white"
     },
     textNamePipeline: {

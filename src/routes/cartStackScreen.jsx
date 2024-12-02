@@ -3,8 +3,8 @@ import CartPage from '../pages/Cart/CartPage';
 import PromoPage from '../pages/Promo/promoPage'
 import PaymentMethods from "../pages/Invoice/invoicePage";
 
-
 const CartStack = createNativeStackNavigator();
+
 const CartStackScreen = () => {
 
     return (

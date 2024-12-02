@@ -1,6 +1,4 @@
-import { Image, Pressable, StyleSheet } from "react-native";
-import { View, Text } from "react-native";
-import image from "../../assets/thumb/backgr_image.png"
+import { View, Text, Image, Pressable, StyleSheet } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 // import { AirbnbRating } from "react-native-ratings";
 import { StarRatingDisplay } from 'react-native-star-rating-widget';
@@ -35,6 +33,7 @@ const CardProduct = ({ product }) => {
                 </View>
             </View>
             <View style={styleCardProduct.frameType}>
+                <Image source={require("../../assets/thumb/now.png")} style={{ height: 11, width: 32 }} />
                 <Text style={styleCardProduct.textType}>Giao siêu tốc 2h</Text>
             </View>
 
@@ -63,9 +62,11 @@ const styleCardProduct = StyleSheet.create({
     },
     frameType: {
         flex: 0.17,
-        justifyContent: "flex-end",
         borderTopWidth: 1,
-        borderColor: "#f2f2f2"
+        borderColor: "#f2f2f2",
+        flexDirection: "row",
+        alignItems: "center",
+        paddingTop: 5
     },
     imageProd: {
         width: "100%",
@@ -113,7 +114,8 @@ const styleCardProduct = StyleSheet.create({
     textType: {
         fontSize: 10,
         fontWeight: "400",
-        color: "#808089"
+        color: "#808089",
+        marginLeft: 5
     }
 });
 export default memo(CardProduct);

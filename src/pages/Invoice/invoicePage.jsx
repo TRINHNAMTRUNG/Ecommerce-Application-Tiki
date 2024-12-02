@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Modal, View, Text, TouchableOpacity, ScrollView, StyleSheet, Button } from 'react-native';
+import { Modal, View, Text, TouchableOpacity, ScrollView, StyleSheet, Button, Linking } from 'react-native';
 import { useModal } from '../../components/modelDialog';
+import { postPayment } from '../../services/paymentService';
 
 const PaymentMethods = ({ navigation }) => {
   const [selectedMethod, setSelectedMethod] = useState(null);
@@ -15,6 +16,31 @@ const PaymentMethods = ({ navigation }) => {
 
   const handleSelect = (method) => {
     setSelectedMethod(method);
+  };
+  const handleAcceptPayment = async () => {
+
+    try {
+      const dataPayment = {
+        items: [{ "image": "https://momo.vn/uploads/product1.jpg", "name": "Product 1", "quantity": 1, "amount": 20000 }, { "image": "https://momo.vn/uploads/product2.jpg", "name": "Product 2", "quantity": 2, "amount": 30000 }],
+        userInfo: { "phoneNumber": "0123456789", "email": "momo@momo.vn", "name": "momo" },
+        amount: 13000
+      };
+      const result = await postPayment(dataPayment);
+      console.log(result);
+      const supported = await Linking.canOpenURL(result.data.payUrl);
+      if (supported) {
+        // Mở URL trong trình duyệt hoặc app liên kết
+        await Linking.openURL(result.data.payUrl);
+      } else {
+        Alert.alert('Error', 'Không thể mở liên kết thanh toán');
+      }
+    } catch (error) {
+      console.error('Error opening URL:', error);
+      Alert.alert('Error', 'Có lỗi xảy ra khi mở liên kết thanh toán');
+    }
+    // setIsModalVisible(false);
+    // openModal('Thanh toán thành công!', 'success');
+    // navigation.goBack();
   };
 
   const handleConfirm = () => {
@@ -60,11 +86,7 @@ const PaymentMethods = ({ navigation }) => {
               />
               <Button
                 title="Đồng ý"
-                onPress={() => {
-                  setIsModalVisible(false);
-                  openModal('Thanh toán thành công!', 'success');
-                  navigation.goBack();
-                }}
+                onPress={() => handleAcceptPayment()}
               />
             </View>
           </View>

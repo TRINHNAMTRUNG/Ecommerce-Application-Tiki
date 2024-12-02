@@ -1,110 +1,133 @@
-import React, { memo } from "react";
-import { View, Text, Image, FlatList, StyleSheet } from "react-native";
+import React, { memo, useEffect, useState } from "react";
+import { View, Text, Image, FlatList, StyleSheet, SectionList, TouchableOpacity } from "react-native";
+import LoadingComponent from "../loadComponent";
+import { getAllLeafCategory, getCategoriesHierarchy, getCategoryByCatg } from "../../services/categoryService";
+import { getListByCatg } from "../../services/productService";
+const CategoryGrid = ({ typeCatg, typeIdDefault, navigation }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [listCtg, setListCtg] = useState([]);
+  useEffect(() => {
+    if (typeCatg) {
+      fetchListLeaf(typeCatg.typeIdCatg);
+    }
+  }, [typeCatg]);
+  const fetchListLeaf = async (typeIdCatg) => {
+    try {
+      setIsLoading(true);
+      if (typeIdCatg === typeIdDefault) {
+        const result = await getAllLeafCategory();
+        setListCtg(result.data);
+      } else {
+        const result = await getCategoriesHierarchy(typeIdCatg);
+        setListCtg(result.data);
+      }
 
-const categories = [
-  {
-    id: "1",
-    image:
-      "https://storage.googleapis.com/a1aa/image/msCSsUVkYlomOtofJASlDDIe5cLKlhCpkf656MorEZrDPOinA.jpg",
-    name: "Đồ Chơi - Mẹ & Bé",
-  },
-  {
-    id: "2",
-    image:
-      "https://storage.googleapis.com/a1aa/image/ovt8fXFOe4u1G0McoD3GfPK232IelZn5PnEZLZMr9RyBe4IeE.jpg",
-    name: "Điện Thoại - Máy Tính Bảng",
-  },
-  {
-    id: "3",
-    image:
-      "https://storage.googleapis.com/a1aa/image/Ow51Akxjk0I8BRTDNi68YgLQwnedV3oR2ELTCnQAK5Csjj4JA.jpg",
-    name: "NGON",
-  },
-  {
-    id: "4",
-    image:
-      "https://storage.googleapis.com/a1aa/image/e6GV54ZmjswsBiaaCfrxLZgIzKKzKZQlSeqKJVvXv9MEPOinA.jpg",
-    name: "Làm Đẹp - Sức Khỏe",
-  },
-  {
-    id: "5",
-    image:
-      "https://storage.googleapis.com/a1aa/image/H4pueYkqNmTYASnClxF0ivbo7rJQJb76vfuxfWfINTZwdcEPB.jpg",
-    name: "Điện Gia Dụng",
-  },
-  {
-    id: "6",
-    image:
-      "https://storage.googleapis.com/a1aa/image/eY75m7uhwLTHBSnW4jrLfkdw25PNfFUuBD5SkoAYtE2kOOinA.jpg",
-    name: "Thời trang nữ",
-  },
-  {
-    id: "7",
-    image:
-      "https://storage.googleapis.com/a1aa/image/kOQ8dR6lThpJD9eh0IqoSzuI5Qt1xr8gN6rXyN9oLmyxjj4JA.jpg",
-    name: "Thời trang nam",
-  },
-  {
-    id: "8",
-    image:
-      "https://storage.googleapis.com/a1aa/image/FL5S7NtoFO50AB4SiCFeE2RUeldCh8Fss77uBgDpbfPfdcEPB.jpg",
-    name: "Giày - Dép nữ",
-  },
-  {
-    id: "9",
-    image:
-      "https://storage.googleapis.com/a1aa/image/fi1aooYNdRz2HaxoEe51fllO1isOIC7pH4HNZjqAyRveccEPB.jpg",
-    name: "Túi thời trang nữ",
-  },
-  {
-    id: "10",
-    image:
-      "https://storage.googleapis.com/a1aa/image/rnlTcfSWElwVCq2S34g5EgJMN4MF8zeFjdkPlE2oIDVVHHxTA.jpg",
-    name: "Giày - Dép nam",
-  },
-  {
-    id: "11",
-    image:
-      "https://storage.googleapis.com/a1aa/image/T8jCttgqSewqbyySGM3cK2lN2iZSc7HR4LyR3QO3RX4pjj4JA.jpg",
-    name: "Túi thời trang nam",
-  },
-  {
-    id: "12",
-    image:
-      "https://storage.googleapis.com/a1aa/image/juRef6nhnpgKxEaniF98989WD4WlvwLp5NqzTcpBtltUHHxTA.jpg",
-    name: "Balo và Vali",
-  },
+    } catch (error) {
+      console.log("DATA ERRROR: ", error)
+    } finally {
+      setIsLoading(false);
+    }
+  }
+  const handleCategorySelect = async (idCatg, nameCatg) => {
+    console.log("CLICK ", idCatg);
+    try {
+      const resultProd = await getListByCatg({ page: 1, idCatg, isShowLoading: false });
+      // console.log("CLICK data", resultProd.listProduct);
+      const resultCatg = await getCategoryByCatg(idCatg, true);
+      console.log("LISSST CATG CHILD :           ", resultCatg);
+      const dataChildCatg = {
+        categories: resultCatg.data,
+        nameCatg: resultCatg.data.length === 0 ? "" : nameCatg
+      };
+      const dataSearch = {
+        data: resultProd.data.listProduct,
+        namePipeline: "Kết quả tìm được",
+        maxPage: resultProd.data.totalPages,
+        // listCatgChild: resultCatg.data,
+        idCatg
+      };
+      // console.log("CLICK search", dataSearch);
+      navigation.navigate("searchPage", { dataSearch, typeFetch: "SEARCH_CATG", dataChildCatg });
+    } catch (error) {
+      console.log(error.message, ": ", error.errors[0]);
+    }
 
-];
-
-const CategoryGrid = () => (
-  <View style={styles.container}>
-    <Text style={styles.headerText}>Danh mục đang hot</Text>
-    <FlatList
-      data={categories}
-      renderItem={({ item }) => (
-        <View style={styles.categoryItem}>
-          <Image style={styles.categoryImage} source={{ uri: item.image }} />
-          <Text style={styles.categoryText}>{item.name}</Text>
-        </View>
-      )}
-      keyExtractor={(item) => item.id}
-      numColumns={3}
-      style={styles.categoryGrid}
-    />
-  </View>
-);
+  }
+  if (isLoading) {
+    return <LoadingComponent message="Đang tải danh mục, vui lòng chờ..." />;
+  }
+  return (
+    <View style={styles.container}>
+      {typeCatg && typeCatg.typeIdCatg === typeCatg.typeIdDefault || listCtg[0]?.children.length === 0 ?
+        <FlatList
+          key={'_'}
+          data={listCtg}
+          renderItem={({ item }) => (
+            <TouchableOpacity style={styles.categoryItem} onPress={() => handleCategorySelect(item._id, item.name)}>
+              <View style={styles.wrapImage}>
+                <Image style={styles.categoryImage} source={{ uri: item.image }} />
+              </View>
+              <Text style={styles.categoryText}>{item.name}</Text>
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item) => item._id}
+          numColumns={3}
+          style={styles.categoryGrid}
+          ListHeaderComponent={
+            <View style={styles.wrapHeaderlist}>
+              <Text style={styles.headerText}>Danh mục đang hot</Text>
+            </View>
+          }
+        />
+        :
+        <SectionList
+          key={'#'}
+          sections={listCtg.map(element => ({
+            id: element._id,
+            title: element.name,
+            data: [{ list: element.children }],
+          }))}
+          style={styles.categoryGridSection}
+          renderItem={({ item }) => (
+            <FlatList
+              key={'&'}
+              data={item.list}
+              renderItem={({ item }) => (
+                <TouchableOpacity style={styles.categoryItem} onPress={() => handleCategorySelect(item._id, item.name)}>
+                  <View style={styles.wrapImage}>
+                    <Image style={styles.categoryImage} source={{ uri: item.image }} />
+                  </View>
+                  <Text style={styles.categoryText}>{item.name}</Text>
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item) => item._id}
+              numColumns={3}
+              style={styles.categoryGrid}
+            />
+          )}
+          keyExtractor={(item) => `catg - ${item._id}`}
+          renderSectionHeader={({ section: { title, id } }) => (
+            <TouchableOpacity style={styles.wrapHeaderlist} onPress={() => handleCategorySelect(id, title)}>
+              <Text style={styles.header}>{title}</Text>
+              <Text style={[styles.header, { color: "#0A68FF" }]}>Tất cả</Text>
+            </TouchableOpacity>
+          )}
+        />
+      }
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    padding: 6,
+    paddingHorizontal: 6,
+    justifyContent: "space-around",
+    backgroundColor: "#EEEEEE"
   },
   headerText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginVertical: 10,
+    fontSize: 17,
+    fontWeight: '500',
     color: '#333',  // Màu chữ tiêu đề
   },
   categoryItem: {
@@ -112,15 +135,55 @@ const styles = StyleSheet.create({
     margin: 2,
     width: "30%",
     textAlign: "center",
+    marginRight: 10,
+    marginTop: 10,
+    backgroundColor: "white"
   },
-  categoryImage: {
+  wrapImage: {
     width: 70,
     height: 70,
-    marginBottom: 10,
+    borderRadius: 70,
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
+    overflow: "hidden"
+  },
+  categoryImage: {
+    width: "80%",
+    height: "80%",
   },
   categoryGrid: {
     flex: 1,
+    backgroundColor: "white",
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
+    paddingBottom: 6
   },
+  categoryGridSection: {
+    flex: 1,
+    backgroundColor: "#EEEEEE",
+  },
+  categoryText: {
+    textAlign: 'center',
+    marginTop: 5,
+    fontSize: 12,
+    maxWidth: 68
+  },
+  wrapHeaderlist: {
+    backgroundColor: "white",
+    marginTop: 6,
+    padding: 5,
+    paddingHorizontal: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    borderTopRightRadius: 5,
+    borderTopLeftRadius: 5,
+    alignItems: "center"
+  },
+  header: {
+    fontSize: 13,
+    fontWeight: "500",
+  }
 });
 
 export default memo(CategoryGrid);

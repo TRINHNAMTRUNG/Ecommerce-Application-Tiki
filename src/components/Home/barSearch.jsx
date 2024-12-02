@@ -2,7 +2,7 @@ import { memo, useEffect, useRef, useState } from "react";
 import { View, TouchableOpacity, TextInput, StyleSheet, Animated } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { getSearchProduct } from "../../services/productService";
 import { useNavigationState } from "@react-navigation/native";
 const BarSearch = ({ isFixed, navigation, keepSearching }) => {
@@ -20,7 +20,8 @@ const BarSearch = ({ isFixed, navigation, keepSearching }) => {
 
     const fetchSearchProduct = async (page) => {
         try {
-            const res = await getSearchProduct(textSearch, page, true);
+            const data = { name: textSearch, page, isShowLoading: true };
+            const res = await getSearchProduct(data);
             const dataSearch = {
                 data: res.data.listProduct,
                 namePipeline: "Kết quả tìm được",
@@ -30,7 +31,7 @@ const BarSearch = ({ isFixed, navigation, keepSearching }) => {
             if (currentPage === "searchPage") {
                 keepSearching(dataSearch);
             } else {
-                navigation.navigate("searchPage", { dataSearch });
+                navigation.navigate("searchPage", { dataSearch, typeFetch: "SEARCH_TEXT" });
             }
         } catch (error) {
             const dataSearch = {
@@ -42,7 +43,7 @@ const BarSearch = ({ isFixed, navigation, keepSearching }) => {
             if (currentPage === "searchPage") {
                 keepSearching(dataSearch);
             } else {
-                navigation.navigate("searchPage", { dataSearch });
+                navigation.navigate("searchPage", { dataSearch, typeFetch: "SEARCH_TEXT" });
             }
             console.log("ERRROOOOO KHI LAY DANH SACH SEARCH")
         }
@@ -58,6 +59,7 @@ const BarSearch = ({ isFixed, navigation, keepSearching }) => {
                 <TextInput
                     style={{ flex: 1 }}
                     placeholder='Freeship đơn từ 15k'
+                    placeholderTextColor="#D3D1D3"
                     returnKeyType="search"
                     onSubmitEditing={handleSearch}
                     value={textSearch}
@@ -90,13 +92,12 @@ const stylesBarSearch = StyleSheet.create({
     },
     fixedHeader: {
         position: "absolute",
-        borderTopWidth: 1,
-        borderBottomWidth: 1,
-        borderColor: "gray",
+        shadowColor: "black",
+        elevation: 8,
         borderRadius: 0,
         width: "100%",
         height: 90,
-        paddingTop: 40,
+        paddingTop: 45,
         marginTop: 0,
         top: 0,
         zIndex: 1,
@@ -108,7 +109,7 @@ const stylesBarSearch = StyleSheet.create({
         borderColor: "gray",
         borderRadius: 5,
         paddingLeft: 15,
-        position: "relative"
+        position: "relative",
     },
     buttonCart: {
         width: 40,

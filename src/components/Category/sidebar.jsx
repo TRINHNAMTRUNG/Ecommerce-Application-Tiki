@@ -1,70 +1,66 @@
-import React, { useState } from "react";
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import React, { useEffect, useState } from "react";
+import { Text, Image, StyleSheet, FlatList, TouchableOpacity } from "react-native";
 
-const Sidebar = () => {
-  // State để theo dõi mục đang được chọn
+const Sidebar = ({ ctg, setTypeCateg }) => {
+
   const [selectedCategory, setSelectedCategory] = useState(null);
-
-  // Dữ liệu danh mục
-  const categories = [
-    { name: "Gợi ý cho bạn", image: "https://storage.googleapis.com/a1aa/image/7dq4eq79ilzQOaFImuKOPAMa5gpMI8rRTaRyno0TBFnujj4JA.jpg" },
-    { name: "Nhà Sách Tiki", image: "https://storage.googleapis.com/a1aa/image/sxM8E1OLOiLLF5ZZaos1up1eEpRxQ1mPXrBekqdLc1SRHHxTA.jpg" },
-    { name: "Nhà Cửa - Đời Sống", image: "https://storage.googleapis.com/a1aa/image/eE3K1XTVfVlqd0zWgunaPb6MzeQ4opW656tSqoUupxd3OOinA.jpg" },
-    { name: "Điện Thoại - Máy Tính", image: "https://storage.googleapis.com/a1aa/image/MJXE9EFM4l4UNN2xLSP3UAcWDkvYJzUlO1WfyvRQGLQtjj4JA.jpg" },
-    
-  ];
-
-  // Xử lý khi người dùng chọn danh mục
-  const handleCategorySelect = (category) => {
-    setSelectedCategory(category);
+  console.log("UOWWW ", selectedCategory);
+  useEffect(() => {
+    if (ctg.length > 0) {
+      const firstCategoryId = ctg[0]._id;
+      setSelectedCategory(firstCategoryId);
+    }
+  }, [ctg]);
+  const handleCategorySelect = (typeIdCatg, name) => {
+    console.log(typeIdCatg)
+    setTypeCateg({ typeIdCatg, name });
+    setSelectedCategory(typeIdCatg);
   };
 
+  const renderCategoryItem = ({ item }) => (
+    <TouchableOpacity
+      style={[
+        styles.sidebarItem,
+        selectedCategory === item._id && styles.selectedItem,
+      ]}
+      onPress={() => handleCategorySelect(item._id, item.name)}
+    >
+      <Image style={styles.icon} source={{ uri: item.image }} />
+      <Text style={styles.text}>{item.name}</Text>
+    </TouchableOpacity>
+  );
+
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={{ flex: 1 }}>
-        <ScrollView style={styles.sidebar}>
-          {categories.map((category, index) => (
-            <TouchableOpacity
-              key={index}
-              style={[
-                styles.sidebarItem,
-                selectedCategory === category.name && styles.selectedItem
-              ]}
-              onPress={() => handleCategorySelect(category.name)}
-            >
-              <Image
-                style={styles.icon}
-                source={{ uri: category.image }}
-              />
-              <Text style={styles.text}>{category.name}</Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-      </SafeAreaView>
-    </SafeAreaProvider>
+    <FlatList
+      style={styles.sidebar}
+      data={ctg}
+      renderItem={renderCategoryItem}
+      keyExtractor={(item) => item.name}
+      showsVerticalScrollIndicator={false}
+    />
   );
 };
 
 const styles = StyleSheet.create({
   sidebar: {
     flex: 1,
-    paddingVertical: 5,
+    backgroundColor: "#DBEEFF",
+    borderRightWidth: 2,
+    borderColor: "#EEEEEE"
   },
   sidebarItem: {
     alignItems: "center",
     paddingVertical: 20,
-    marginBottom: 10,
     flexDirection: "column",
-    borderBottomWidth: 0.5,
-    borderBottomColor: "#ccc",
+    borderBottomWidth: 2,
+    borderBottomColor: "#EEEEEE",
   },
   selectedItem: {
-    backgroundColor: "#ffffff", // Màu nền khi mục được chọn
+    backgroundColor: "#ffffff", //nền select
   },
   icon: {
-    width: 60,
-    height: 60,
+    width: 45,
+    height: 45,
     borderRadius: 8,
   },
   text: {
@@ -72,6 +68,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: "center",
     color: "#333",
+    fontWeight: "500"
   },
 });
 

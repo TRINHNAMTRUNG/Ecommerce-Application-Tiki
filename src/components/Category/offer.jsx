@@ -21,22 +21,23 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#FFEB3B',
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        margin: 20,
+        backgroundColor: '#FFE880',
+        paddingVertical: 6,
+        paddingHorizontal: 15,
         width: '90%',
-        paddingTop: 10,
+        borderRadius: 5
     },
     icon: {
-        marginRight: 10,
+        marginLeft: 20
     },
     textContainer: {
         flex: 1,
     },
     text: {
-        fontSize: 16,
+        fontSize: 14,
         color: '#000',
+        fontWeight: "500",
+        textAlign: "center"
     },
     highlightText: {
         color: '#1E88E5',

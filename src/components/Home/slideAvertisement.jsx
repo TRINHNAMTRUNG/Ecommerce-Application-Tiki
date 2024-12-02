@@ -76,7 +76,7 @@ const stylesSlide = StyleSheet.create({
     slide: {
         width: 310,
         height: 160,
-        alignItems: "center"
+        alignItems: "center",
     },
     fixScroll: {
         marginTop: "55%"
@@ -97,7 +97,7 @@ const stylesSlide = StyleSheet.create({
     activeSquare: {
         width: 35,
         backgroundColor: "#1670FF",
-    }
+    },
 });
 
 export default memo(SlideAdvertisement);
