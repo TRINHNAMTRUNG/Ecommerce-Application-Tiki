@@ -2,6 +2,7 @@
 import Layout from './src/routes/layout';
 import { enableScreens } from 'react-native-screens';
 enableScreens();
+import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './src/store/store';
@@ -15,18 +16,22 @@ import CreatePromoCode from './src/pages/Seller/couponPage';
 import CreateProduct from './src/pages/Seller/createProduct';
 import PaymentMethods from './src/pages/Invoice/invoicePage';
 import ChooseRoleScreen from './src/pages/RoleSelection/roleSelection';
-
+import InvoiceListScreen from './src/pages/Invoice/orderHistoryPage'
+import InvoiceDetailScreen from './src/pages/Invoice/orderDetailPage';
+import InvoiceStackScreen from './src/routes/invoiceStackScreen';
 export default function App() {
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <LoadingSpinner />
-        <ModalProvider>
-          <Layout />
-        </ModalProvider>
-      </PersistGate>
-    </Provider>
-    // <SignUpForm />
+    // <Provider store={store}>
+    //   <PersistGate loading={null} persistor={persistor}>
+    //     <LoadingSpinner />
+    //     <ModalProvider>
+    //       <Layout />
+    //     </ModalProvider>
+    //   </PersistGate>
+    // </Provider>
+    <NavigationContainer>
+    <InvoiceStackScreen />
+  </NavigationContainer>
   );
 }
 
