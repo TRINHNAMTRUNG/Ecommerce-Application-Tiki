@@ -19,6 +19,8 @@ import ChooseRoleScreen from './src/pages/RoleSelection/roleSelection';
 import InvoiceListScreen from './src/pages/Invoice/orderHistoryPage'
 import InvoiceDetailScreen from './src/pages/Invoice/orderDetailPage';
 import InvoiceStackScreen from './src/routes/invoiceStackScreen';
+
+import ForgotPasswordScreen from './src/pages/forgotPassword/ForgotPasswordPages';
 export default function App() {
   return (
     // <Provider store={store}>
@@ -30,7 +32,7 @@ export default function App() {
     //   </PersistGate>
     // </Provider>
     <NavigationContainer>
-    <InvoiceStackScreen />
+    <ForgotPasswordScreen />
   </NavigationContainer>
   );
 }
